@@ -3,28 +3,14 @@
     -fx-background-color: #f0f0f0;
     -fx-border: none;
     -fx-max-width: Infinity;
-    -fx-font-weight: bold;
 }
 
 .navigation-button:hover {
-    -fx-background-color: #74B4FF;
+    -fx-background-color: #e0e0e0;
     -fx-cursor: hand;
-    -fx-text-fill: white;
 }
 
-.navigation-button:focused {
-    -fx-background-color: #056EE9;
-    -fx-text-fill: white;
-}
-
-.navigation-button .glyph-icon {
-    -fx-fill: #333;
-}
-
-.navigation-button:hover .glyph-icon {
-    -fx-fill: white;
-}
-
-.navigation-button:focused .glyph-icon {
-    -fx-fill: white;
+.navigation-button.clicked {
+    -fx-background-color: #d0d0d0;
+    -fx-font-weight: bold;
 }

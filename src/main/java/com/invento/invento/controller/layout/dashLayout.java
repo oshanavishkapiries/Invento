@@ -1,7 +1,5 @@
 package com.invento.invento.controller.layout;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class dashLayout implements Initializable {
@@ -28,7 +25,7 @@ public class dashLayout implements Initializable {
     @FXML
     private VBox com_sider;
 
-    private List<btnData> navigationButtons;
+    private Button currentlySelectedButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,13 +34,11 @@ public class dashLayout implements Initializable {
 
         ArrayList<btnData> nb = new ArrayList<>();
 
-
-        nb.add(new btnData(FontAwesomeIcon.TACHOMETER, "/view/pages/DashBoardPage.fxml", "Dashboard"));
-        nb.add(new btnData(FontAwesomeIcon.HOME, "/view/pages/InventoryPage.fxml", "Inventory"));
-        nb.add(new btnData(FontAwesomeIcon.SHOPPING_CART, "/view/pages/OrderPage.fxml", "Order"));
-        nb.add(new btnData(FontAwesomeIcon.CREDIT_CARD, "/view/pages/PaymentPage.fxml", "Payment"));
-        nb.add(new btnData(FontAwesomeIcon.USERS, "/view/pages/EmployeePage.fxml", "Employee"));
-
+        nb.add(new btnData("/view/pages/DashBoardPage.fxml", "Dashboard"));
+        nb.add(new btnData("/view/pages/InventoryPage.fxml", "Inventory"));
+        nb.add(new btnData("/view/pages/OrderPage.fxml", "Order"));
+        nb.add(new btnData("/view/pages/PaymentPage.fxml", "Payment"));
+        nb.add(new btnData("/view/pages/EmployeePage.fxml", "Employee"));
 
         for (btnData buttonData : nb) {
             addButtonToSidebar(buttonData);
@@ -52,15 +47,21 @@ public class dashLayout implements Initializable {
 
     private void addButtonToSidebar(btnData buttonData) {
         Button button = new Button(buttonData.buttonText);
-        FontAwesomeIconView iconView = new FontAwesomeIconView(buttonData.icon);
-        iconView.setGlyphSize(16);
-        button.setGraphic(iconView);
+
         button.setAlignment(Pos.CENTER_LEFT);
         button.setGraphicTextGap(10);
         button.setPadding(new Insets(10));
 
+        button.setOnAction(event -> {
+            loadView(buttonData.pagePath);
 
-        button.setOnAction(event -> loadView(buttonData.pagePath));
+            if (currentlySelectedButton != null) {
+                currentlySelectedButton.getStyleClass().remove("clicked");
+            }
+            button.getStyleClass().add("clicked");
+            currentlySelectedButton = button;
+        });
+
         button.getStyleClass().add("navigation-button");
         com_sider.getChildren().add(button);
     }
@@ -82,12 +83,10 @@ public class dashLayout implements Initializable {
     }
 
     private class btnData {
-        FontAwesomeIcon icon;
         String pagePath;
         String buttonText;
 
-        public btnData(FontAwesomeIcon icon, String pagePath, String buttonText) {
-            this.icon = icon;
+        public btnData(String pagePath, String buttonText) {
             this.pagePath = pagePath;
             this.buttonText = buttonText;
         }
