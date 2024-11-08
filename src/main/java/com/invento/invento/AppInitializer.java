@@ -14,6 +14,6 @@ public class AppInitializer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         ViewNavigator.setMainStage(primaryStage);
-        ViewNavigator.loadView("LoginPage");
+        ViewNavigator.loadView("layouts/dashLayout",true);
     }
 }
