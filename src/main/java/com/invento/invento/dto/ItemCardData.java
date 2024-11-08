@@ -1,5 +1,10 @@
 package com.invento.invento.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ItemCardData {
 
     private String title;
@@ -10,29 +15,5 @@ public class ItemCardData {
         this.imageUrl = imageUrl;
         this.description = description;
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 }
