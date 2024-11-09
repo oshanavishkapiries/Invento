@@ -1,6 +1,7 @@
 package com.invento.invento.controller.components.inventory;
 
-import com.invento.invento.dto.ItemCardData;
+import com.invento.invento.dto.inventoryCardDto;
+import com.invento.invento.model.ProductModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -16,50 +17,22 @@ public class ListView {
 
     @FXML
     public void initialize() {
-        List<ItemCardData> cardDataList = getCardData();
+        List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
         try {
             int row = 0;
             int col = 0;
-            for (ItemCardData cardData : cardDataList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/inventory/CardComponentList.fxml"));
+            for (inventoryCardDto cardData : cardDataList) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/inventory/ListCard.fxml"));
                 AnchorPane card = loader.load();
 
-                CardComponent cardController = loader.getController();
+                BothCard cardController = loader.getController();
                 cardController.setData(cardData);
 
                 gridPane.add(card, col, row);
-
-
-                    row++;
-
+                row++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private List<ItemCardData> getCardData() {
-
-        return List.of(
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 1", "Description 1", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 2", "Description 2", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 3", "Description 3", "..\\..\\assets\\pic1.png"),
-                new ItemCardData("Product 4", "Description 4", "..\\..\\assets\\pic1.png")
-        );
     }
 }

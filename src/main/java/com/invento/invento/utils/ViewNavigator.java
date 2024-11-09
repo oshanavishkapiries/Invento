@@ -3,7 +3,6 @@ package com.invento.invento.utils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +25,7 @@ public class ViewNavigator {
             Scene scene = new Scene(root);
             mainStage.setScene(scene);
             mainStage.setTitle("Invento");
+            mainStage.setResizable(false);
             mainStage.setMaximized(isMaximized);
             mainStage.show();
         } catch (IOException e) {
