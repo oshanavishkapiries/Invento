@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="584.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.InventoryController">
+<AnchorPane prefHeight="584.0" prefWidth="675.0" stylesheets="@../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.InventoryController">
     <children>
         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -27,113 +27,184 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <HBox alignment="CENTER_RIGHT">
-                     <children>
-                        <TextField promptText="Search" />
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/search.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT" styleClass="search-box">
+                            <children>
+                                <TextField promptText="Search" styleClass="text-field" />
+                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/icons/search.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
                     </children>
                     <padding>
                         <Insets left="50.0" right="50.0" />
                     </padding>
                 </HBox>
             </top>
-         <center>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-              <tabs>
-                <Tab text="Product">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane fx:id="com_borderpane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Product">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <BorderPane fx:id="com_borderpane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <top>
+                                                <HBox alignment="CENTER_RIGHT" prefHeight="40.0" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <HBox alignment="CENTER">
+                                                            <children>
+                                                                <Button fx:id="gridButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="grid-button">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../assets/icons/grid.png" />
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="listButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="grid-button">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../assets/icons/list.png" />
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets right="10.0" />
+                                                    </padding>
+                                                </HBox>
+                                            </top>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                            <graphic>
+                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/icons/product.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab text="add item">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="add-item-tab">
+                                    <children>
+                                        <BorderPane layoutX="144.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="main-borderpane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <top>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="40.0" BorderPane.alignment="CENTER">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <HBox alignment="CENTER">
-                                             <children>
-                                                <Button fx:id="gridButton" mnemonicParsing="false" text="Grid" />
-                                                <Button fx:id="listButton" mnemonicParsing="false" text="List" />
-                                             </children>
-                                          </HBox>
+                                          <Label styleClass="label-product-image" text="ADD ITEM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                        <padding>
-                                          <Insets right="10.0" />
+                                          <Insets left="10.0" />
                                        </padding>
                                     </HBox>
                                  </top>
-                              </BorderPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="add item">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane layoutX="144.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <left>
-                                    <VBox alignment="TOP_CENTER" prefHeight="321.0" prefWidth="161.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label text="Add product image" />
-                                          <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../assets/icons/addPic.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
+                                                <VBox styleClass="left-panel" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="product-image">
+                                                            <image>
+                                                                <Image url="@../assets/icons/addPic.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                </VBox>
                                  </left>
                                  <center>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label text="Enter Product name" />
-                                          <TextField fx:id="product_name" promptText="Name " />
-                                          <Label layoutX="10.0" layoutY="10.0" text="Enter Product Description" />
-                                          <TextArea fx:id="product_description" prefHeight="94.0" prefWidth="390.0" promptText="Description" />
-                                          <Label layoutX="10.0" layoutY="52.0" text="Select Product Category" />
-                                          <HBox>
-                                             <children>
-                                                <ComboBox fx:id="product_category" prefHeight="25.0" prefWidth="190.0" promptText="Category" HBox.hgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" onAction="#product_category_add_onclick" text="add" />
-                                             </children>
-                                          </HBox>
-                                          <Label layoutX="10.0" layoutY="163.0" text="Select Brand Category" />
-                                          <HBox layoutX="10.0" layoutY="129.0">
-                                             <children>
-                                                <ComboBox fx:id="product_brand" prefHeight="25.0" prefWidth="189.0" promptText="Brand" HBox.hgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" onAction="#product_brand_add_onclick" text="add" />
-                                             </children>
-                                          </HBox>
-                                          <Label layoutX="15.0" layoutY="208.0" text="Enter QTY in stock" />
-                                          <TextField fx:id="product_quantityInStock" promptText="QuantityInStock" />
-                                          <Label layoutX="15.0" layoutY="332.0" text="Enter Price  ( lkr )" />
-                                          <TextField fx:id="product_price" promptText="Price" />
-                                          <Button mnemonicParsing="false" onAction="#product_submit_onclick" prefHeight="37.0" prefWidth="72.0" text="Submit" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
+                                                <VBox prefWidth="375.0" spacing="10.0" styleClass="center-panel" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Label styleClass="label-product-name" text="Enter Product name" />
+                                                        <TextField fx:id="product_name" promptText="Name " styleClass="input-product-name" />
+
+                                                        <Label layoutX="10.0" layoutY="10.0" styleClass="label-product-description" text="Enter Product Description" />
+                                                        <TextArea fx:id="product_description" prefHeight="94.0" prefWidth="390.0" promptText="Description" styleClass="textarea-product-description" />
+
+                                                        <Label layoutX="10.0" layoutY="52.0" styleClass="label-product-category" text="Select Product Category" />
+                                                        <HBox styleClass="product-category-box">
+                                                            <children>
+                                                                <ComboBox fx:id="product_category" prefHeight="25.0" prefWidth="10000.0" promptText="Category" styleClass="combo-product-category" HBox.hgrow="ALWAYS" />
+                                                                <Button mnemonicParsing="false" onAction="#product_category_add_onclick" prefHeight="35.0" prefWidth="35.0" styleClass="button-add-category">
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/icons/plus-sq.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                            </children>
+                                                        </HBox>
+
+                                                        <Label layoutX="10.0" layoutY="163.0" styleClass="label-brand-category" text="Select Brand Category" />
+                                                        <HBox layoutX="10.0" layoutY="129.0" styleClass="brand-category-box">
+                                                            <children>
+                                                                <ComboBox fx:id="product_brand" prefHeight="25.0" prefWidth="10000.0" promptText="Brand" styleClass="combo-brand-category" HBox.hgrow="ALWAYS" />
+                                                                <Button mnemonicParsing="false" onAction="#product_brand_add_onclick" prefHeight="35.0" prefWidth="35.0" styleClass="button-add-brand">
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/icons/plus-sq.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                            </children>
+                                                        </HBox>
+
+                                                        <Label layoutX="15.0" layoutY="208.0" styleClass="label-quantity" text="Enter QTY in stock" />
+                                                        <TextField fx:id="product_quantityInStock" promptText="QuantityInStock" styleClass="input-quantity" />
+
+                                                        <Label layoutX="15.0" layoutY="332.0" styleClass="label-price" text="Enter Price  ( lkr )" />
+                                                        <TextField fx:id="product_price" promptText="Price" styleClass="input-price" />
+
+                                                        <Button mnemonicParsing="false" onAction="#product_submit_onclick" prefHeight="40.0" prefWidth="10000.0" styleClass="button-submit" text="Submit" VBox.vgrow="ALWAYS">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/icons/correct.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></Button>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                </VBox>
                                  </center>
                                  <right>
-                                    <VBox prefHeight="473.0" prefWidth="312.0" BorderPane.alignment="CENTER" />
+                                    <VBox prefWidth="100.0" BorderPane.alignment="CENTER" />
                                  </right>
-                              </BorderPane>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </center>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                            <graphic>
+                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="tab-icon">
+                                    <image>
+                                        <Image url="@../assets/icons/plus.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </center>
         </BorderPane>
     </children>
 </AnchorPane>

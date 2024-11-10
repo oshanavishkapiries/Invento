@@ -1,7 +1,7 @@
 .navigation-button {
     -fx-padding: 10;
     -fx-background-color: #f0f0f0;
-    -fx-border: none;
+    -fx-border-width: 2;
     -fx-max-width: Infinity;
 }
 
@@ -11,6 +11,11 @@
 }
 
 .navigation-button.clicked {
-    -fx-background-color: #d0d0d0;
+    -fx-background-color: rgb(255, 255, 255);
     -fx-font-weight: bold;
+    -fx-border-color: #007bff;
+    -fx-text-fill: #007bff;
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-border-radius: 4;
 }

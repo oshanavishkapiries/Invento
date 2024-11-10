@@ -1,17 +1,17 @@
 package com.invento.invento.controller.layout;
 
 import com.invento.invento.utils.aminations.FadeIn;
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,12 +49,20 @@ public class dashLayout implements Initializable {
     private void addButtonToSidebar(btnData buttonData) {
         Button button = new Button(buttonData.buttonText);
 
+        String imagePath = "/view/assets/icons/" + buttonData.buttonText + ".png";
+        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(15);
+        imageView.setFitHeight(15);
+
+        button.setGraphic(imageView);
         button.setAlignment(Pos.CENTER_LEFT);
         button.setGraphicTextGap(10);
         button.setPadding(new Insets(10));
 
         button.setOnAction(event -> {
-            loadView(buttonData.pagePath);
+            loadLoader();
+            loadViewInBackground(buttonData.pagePath);
 
             if (currentlySelectedButton != null) {
                 currentlySelectedButton.getStyleClass().remove("clicked");
@@ -67,13 +75,38 @@ public class dashLayout implements Initializable {
         com_sider.getChildren().add(button);
     }
 
+    private void loadViewInBackground(String fxmlPath) {
+        new Thread(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                AnchorPane view = loader.load();
+
+                javafx.application.Platform.runLater(() -> {
+                    border_pane.setCenter(view);
+                    new FadeIn(view, 300);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void loadLoader() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/Loader.fxml"));
+            AnchorPane loaderView = loader.load();
+            border_pane.setCenter(loaderView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane view = loader.load();
             border_pane.setCenter(view);
             new FadeIn(view, 300);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

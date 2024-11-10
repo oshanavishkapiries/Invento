@@ -1,0 +1,65 @@
+AnchorPane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0.2, 0, 1);
+}
+
+#name, #tag, #brand, #price, #qty {
+    -fx-text-alignment: left;
+    -fx-alignment: center-left;
+    -fx-font-size: 15px;
+    -fx-text-fill: #333333;
+}
+
+#price, #qty {
+    -fx-font-weight: bold;
+}
+
+#name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+HBox > Label {
+    -fx-font-size: 15px;
+}
+
+#btn_delete {
+    -fx-background-color: #e53935;
+    -fx-text-fill: white;
+    -fx-transition: 0.3s ease;
+}
+
+#btn_edit {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}
+
+.button-add-category:hover, .button-add-brand:hover {
+    -fx-background-color: #007bff;
+}
+
+#btn_delete:hover {
+    -fx-background-color: #d32f2f;
+}
+
+ImageView {
+    -fx-opacity: 0.8;
+}
+
+HBox .ImageView {
+    -fx-margin-right: 5px;
+}
+
+VBox {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+HBox {
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+}
