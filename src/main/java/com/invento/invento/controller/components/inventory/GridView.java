@@ -3,6 +3,7 @@ package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,13 @@ public class GridView {
 
     @FXML
     public void initialize() {
+
+
+        Reference.gridView = this;
+
+        if (!gridPane.getChildren().isEmpty()) {
+            gridPane.getChildren().clear();
+        }
         List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
         try {
             int row = 0;

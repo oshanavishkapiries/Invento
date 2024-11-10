@@ -1,7 +1,7 @@
 -- Create the Role table
 CREATE TABLE Role
 (
-    RoleID      INT PRIMARY KEY,
+    RoleID      INT PRIMARY KEY AUTO_INCREMENT,
     RoleName    VARCHAR(255),
     Description TEXT
 );
@@ -9,7 +9,7 @@ CREATE TABLE Role
 -- Create the Department table
 CREATE TABLE Department
 (
-    DepartmentID INT PRIMARY KEY,
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,
     Name         VARCHAR(255),
     Location     VARCHAR(255)
 );
@@ -17,7 +17,7 @@ CREATE TABLE Department
 -- Create the Product table
 CREATE TABLE Product
 (
-    ProductID       INT PRIMARY KEY,
+    ProductID       INT PRIMARY KEY AUTO_INCREMENT,
     Name            VARCHAR(255),
     Category        VARCHAR(255),
     Description     VARCHAR(255),
@@ -26,10 +26,11 @@ CREATE TABLE Product
     QuantityInStock INT
 );
 
+
 -- Create the Supplier table
 CREATE TABLE Supplier
 (
-    SupplierID INT PRIMARY KEY,
+    SupplierID INT PRIMARY KEY AUTO_INCREMENT,
     Name       VARCHAR(255),
     Phone      VARCHAR(20),
     Email      VARCHAR(255),
@@ -39,7 +40,7 @@ CREATE TABLE Supplier
 -- Create the Customer table
 CREATE TABLE Customer
 (
-    CustomerID INT PRIMARY KEY,
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
     Name       VARCHAR(255),
     Phone      VARCHAR(20),
     Email      VARCHAR(255),
@@ -49,7 +50,7 @@ CREATE TABLE Customer
 -- Create the Employee table
 CREATE TABLE Employee
 (
-    EmployeeID   INT PRIMARY KEY,
+    EmployeeID   INT PRIMARY KEY AUTO_INCREMENT,
     RoleID       INT,
     DepartmentID INT,
     Name         VARCHAR(255),
@@ -66,7 +67,7 @@ CREATE TABLE Employee
 -- Create the Inventory table
 CREATE TABLE Inventory
 (
-    InventoryID       INT PRIMARY KEY,
+    InventoryID       INT PRIMARY KEY AUTO_INCREMENT,
     ProductID         INT,
     QuantityAvailable INT,
     Location          VARCHAR(255),
@@ -76,7 +77,7 @@ CREATE TABLE Inventory
 -- Create the Warranty table
 CREATE TABLE Warranty
 (
-    WarrantyID      INT PRIMARY KEY,
+    WarrantyID      INT PRIMARY KEY AUTO_INCREMENT,
     ProductID       INT,
     WarrantyPeriod  VARCHAR(255),
     CoverageDetails TEXT,
@@ -86,7 +87,7 @@ CREATE TABLE Warranty
 -- Create the `Order` table
 CREATE TABLE `Order`
 (
-    OrderID     INT PRIMARY KEY,
+    OrderID     INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID  INT,
     OrderDate   DATE,
     TotalAmount DECIMAL(10, 2),
@@ -96,7 +97,7 @@ CREATE TABLE `Order`
 -- Create the OrderDetail table
 CREATE TABLE OrderDetail
 (
-    OrderDetailID INT PRIMARY KEY,
+    OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
     OrderID       INT,
     ProductID     INT,
     Quantity      INT,
@@ -108,7 +109,7 @@ CREATE TABLE OrderDetail
 -- Create the Purchase table
 CREATE TABLE Purchase
 (
-    PurchaseID   INT PRIMARY KEY,
+    PurchaseID   INT PRIMARY KEY AUTO_INCREMENT,
     InventoryID  INT,
     SupplierID   INT,
     EmployeeID   INT,
@@ -122,7 +123,7 @@ CREATE TABLE Purchase
 -- Create the Service table
 CREATE TABLE Service
 (
-    ServiceID          INT PRIMARY KEY,
+    ServiceID          INT PRIMARY KEY AUTO_INCREMENT,
     EmployeeID         INT,
     ProductID          INT,
     ServiceDate        DATE,
@@ -134,7 +135,7 @@ CREATE TABLE Service
 -- Create the Shift table
 CREATE TABLE Shift
 (
-    ShiftID    INT PRIMARY KEY,
+    ShiftID    INT PRIMARY KEY AUTO_INCREMENT,
     EmployeeID INT,
     ShiftDate  DATE,
     StartTime  TIME,
@@ -145,7 +146,7 @@ CREATE TABLE Shift
 -- Create the Payment table
 CREATE TABLE Payment
 (
-    PaymentID     INT PRIMARY KEY,
+    PaymentID     INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID    INT,
     PaymentDate   DATE,
     AmountPaid    DECIMAL(10, 2),

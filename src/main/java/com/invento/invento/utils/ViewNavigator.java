@@ -25,7 +25,6 @@ public class ViewNavigator {
             Scene scene = new Scene(root);
             mainStage.setScene(scene);
             mainStage.setTitle("Invento");
-            mainStage.setResizable(false);
             mainStage.setMaximized(isMaximized);
             mainStage.show();
         } catch (IOException e) {

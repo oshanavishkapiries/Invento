@@ -1,5 +1,6 @@
 package com.invento.invento.controller.layout;
 
+import com.invento.invento.utils.aminations.FadeIn;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,12 +71,8 @@ public class dashLayout implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane view = loader.load();
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), view);
-            fadeTransition.setFromValue(0.0);
-            fadeTransition.setToValue(1.0);
-
             border_pane.setCenter(view);
-            fadeTransition.play();
+            new FadeIn(view, 300);
 
         } catch (IOException e) {
             e.printStackTrace();

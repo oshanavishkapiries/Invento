@@ -40,7 +40,7 @@
                 <Font size="15.0" />
             </font>
         </Label>
-        <Button fx:id="btn_edit" layoutX="144.0" layoutY="173.0" mnemonicParsing="false" text="edit" />
+        <Button fx:id="btn_edit" layoutX="144.0" layoutY="173.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="edit" />
         <Button fx:id="btn_delete" layoutX="144.0" layoutY="204.0" mnemonicParsing="false" text="delete" />
     </children>
     <padding>
