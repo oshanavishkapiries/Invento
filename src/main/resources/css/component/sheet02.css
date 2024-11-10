@@ -49,17 +49,3 @@ HBox > Label {
 ImageView {
     -fx-opacity: 0.8;
 }
-
-HBox .ImageView {
-    -fx-margin-right: 5px;
-}
-
-VBox {
-    -fx-spacing: 8px;
-    -fx-alignment: center-left;
-}
-
-HBox {
-    -fx-spacing: 5px;
-    -fx-alignment: center-left;
-}

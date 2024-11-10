@@ -41,7 +41,7 @@ public class GridView {
                 gridPane.add(card, col, row);
 
                 col++;
-                if (col > 4) {
+                if (col > 3) {
                     col = 0;
                     row++;
                 }
