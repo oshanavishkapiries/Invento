@@ -4,13 +4,20 @@ import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class BothCard {
@@ -43,6 +50,50 @@ public class BothCard {
 
     public void initialize() {
         btn_delete.setOnAction(event -> showDeleteConfirmationAlert());
+        btn_edit.setOnAction(event -> btn_edit_click());
+    }
+
+    @FXML
+    void card_on_click(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/inventory/ProductView.fxml"));
+            AnchorPane root = loader.load();
+            ProductView productViewController = loader.getController();
+            productViewController.init(Id);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Product Details");
+            stage.getIcons().add(new Image(getClass().getResource("/view/assets/icons/product.png").toString()));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void btn_edit_click() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/inventory/UpdatePopup.fxml"));
+            AnchorPane root = loader.load();
+
+            UpdatePopup updatePopupController = loader.getController();
+            updatePopupController.initialize(Id);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            Reference.UpdatePopupScene = stage;
+            stage.setScene(scene);
+            stage.setTitle("Update Product");
+            stage.getIcons().add(new Image(getClass().getResource("/view/assets/icons/product.png").toString()));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showDeleteConfirmationAlert() {
@@ -73,10 +124,20 @@ public class BothCard {
     public void setData(inventoryCardDto cardData) {
         Id = cardData.getId();
         name.setText(cardData.getName());
-        brand.setText(cardData.getBrand());
-        tag.setText(cardData.getTag());
         price.setText(String.valueOf(cardData.getPrice()));
         qty.setText(String.valueOf(cardData.getQuantity()));
-        //image.setImage(new Image(cardData.getImageUrl()));
+        setImage(cardData.getImageUrl());
+    }
+
+    public void setImage(String path) {
+        String absolutePath = new File(path).getAbsolutePath();
+        Image image = new Image("file:" + absolutePath);
+
+        if (path.isEmpty()) {
+            image = new Image(getClass().getResourceAsStream("/view/assets/icons/no_pic.png"));
+        }
+        this.image.setImage(image);
     }
 }
+
+

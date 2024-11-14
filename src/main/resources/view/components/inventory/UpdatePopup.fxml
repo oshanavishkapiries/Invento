@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="750.0" stylesheets="@../../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.inventory.UpdatePopup">
+   <children>
+      <BorderPane layoutX="36.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <VBox alignment="CENTER" prefHeight="334.0" prefWidth="214.0" styleClass="left-panel" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="upload_img" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#upload_img_click" pickOnBounds="true" smooth="false" styleClass="product-image" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../../assets/icons/addPic.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </right>
+         <center>
+            <VBox prefHeight="449.0" prefWidth="233.0" spacing="10.0" styleClass="center-panel" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="10.0" layoutY="52.0" styleClass="label-product-category" text="Select Product Category" />
+                  <HBox styleClass="product-category-box">
+                     <children>
+                        <ComboBox fx:id="product_category" prefHeight="25.0" prefWidth="10000.0" promptText="Category" styleClass="combo-product-category" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#product_category_add_onclick" prefHeight="35.0" prefWidth="35.0" styleClass="button-add-category">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/icons/plus-sq.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label layoutX="10.0" layoutY="163.0" styleClass="label-brand-category" text="Select Brand Category" />
+                  <HBox layoutX="10.0" layoutY="129.0" styleClass="brand-category-box">
+                     <children>
+                        <ComboBox fx:id="product_brand" prefHeight="25.0" prefWidth="10000.0" promptText="Brand" styleClass="combo-brand-category" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#product_brand_add_onclick" prefHeight="35.0" prefWidth="35.0" styleClass="button-add-brand">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/icons/plus-sq.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label layoutX="15.0" layoutY="208.0" styleClass="label-quantity" text="Enter QTY in stock" />
+                  <TextField fx:id="product_quantityInStock" promptText="QuantityInStock" styleClass="input-quantity" />
+                  <Label layoutX="15.0" layoutY="332.0" styleClass="label-price" text="Enter Price  ( lkr )" />
+                  <TextField fx:id="product_price" promptText="Price" styleClass="input-price" />
+                  <Button mnemonicParsing="false" onAction="#product_update_onclick" prefHeight="40.0" prefWidth="10000.0" styleClass="button-submit" text="Submit" VBox.vgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/correct.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </center>
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="label-product-image" text="UPDATE ITEM">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="334.0" prefWidth="215.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="label-product-name" text="Enter Product name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="product_name" promptText="Name " styleClass="input-product-name" />
+                  <Label styleClass="label-product-description" text="Enter Product Description">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextArea fx:id="product_description" prefHeight="251.0" prefWidth="205.0" promptText="Description" styleClass="textarea-product-description">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></TextArea>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
+         </left>
+         <bottom>
+            <HBox prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

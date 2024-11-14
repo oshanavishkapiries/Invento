@@ -13,15 +13,12 @@ VALUES (1, 'Sales', 'Building A'),
        (4, 'Human Resources', 'Building A');
 
 -- Insert data into Product table
-INSERT INTO Product (ProductID, Name, Category, Description, Brand, Price, QuantityInStock)
-VALUES (1, 'Laptop', 'Electronics', 'Description', 'BrandA', 1200.00, 50),
-       (2, 'Smartphone', 'Electronics', 'Description', 'BrandB', 800.00, 100),
-       (3, 'Headphones', 'Accessories', 'Description', 'BrandC', 150.00, 200),
-       (4, 'Monitor', 'Electronics', 'Description', 'BrandD', 300.00, 30),
-       (5, 'Laptop', 'Electronics', 'Description', 'BrandA', 1200.00, 50),
-       (6, 'Smartphone', 'Electronics', 'Description', 'BrandB', 800.00, 100),
-       (7, 'Headphones', 'Accessories', 'Description', 'BrandC', 150.00, 200),
-       (8, 'Monitor', 'Electronics', 'Description', 'BrandD', 300.00, 30);
+INSERT INTO Product (ProductID, Name, Category, Description, Brand, Price, QuantityInStock, ProductImgUrl)
+VALUES (1, 'Laptop', 'Electronics', '15-inch display, 16GB RAM, 512GB SSD', 'BrandA', 1200.00, 50, ''),
+       (2, 'Smartphone', 'Electronics', '6.5-inch display, 128GB storage, dual camera', 'BrandB', 800.00, 100, ''),
+       (3, 'Headphones', 'Accessories', 'Over-ear, noise-canceling, Bluetooth', 'BrandC', 150.00, 200, ''),
+       (4, 'Monitor', 'Electronics', '24-inch, Full HD, 75Hz refresh rate', 'BrandD', 300.00, 30, '');
+
 
 -- Insert data into Supplier table
 INSERT INTO Supplier (SupplierID, Name, Phone, Email, Address)

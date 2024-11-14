@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.inventory.ProductView">
+    <children>
+        <BorderPane layoutX="155.0" layoutY="127.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="label-product-image" text="VIEW PRODUCT">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </HBox>
+            </top>
+            <left>
+                <VBox alignment="TOP_CENTER" prefHeight="360.0" prefWidth="235.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fx:id="upload_img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" smooth="false" styleClass="product-image">
+                            <image>
+                                <Image url="@../../assets/icons/addPic.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+                </VBox>
+            </left>
+            <center>
+                <VBox BorderPane.alignment="CENTER">
+                    <children>
+                        <Label style="-fx-text-fill: #007bff;" text="Product name:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="product_name_label" text=" " />
+
+                        <Label style="-fx-text-fill: #007bff;" text="Description:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="description_label" text=" " />
+
+                        <Label style="-fx-text-fill: #007bff;" text="Brand:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="brand_label" text=" " />
+
+                        <Label style="-fx-text-fill: #007bff;" text="Tag:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="tag_label" text=" " />
+
+                        <Label style="-fx-text-fill: #007bff;" text="Price:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="price_label" text=" " />
+
+                        <Label style="-fx-text-fill: #007bff;" text="Quantity:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="quantity_label" text=" " />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

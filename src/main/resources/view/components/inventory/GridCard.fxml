@@ -15,9 +15,9 @@
     <children>
       <BorderPane layoutX="8.0" layoutY="164.0" prefHeight="308.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-              <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+              <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#card_on_click" pickOnBounds="true" BorderPane.alignment="CENTER">
                   <image>
-                      <Image url="@../../assets/pic1.png" />
+                      <Image url="@../../assets/icons/no_pic.png" />
                   </image>
               </ImageView>
          </top>
@@ -56,16 +56,6 @@
                             <Font name="System Bold" size="20.0" />
                         </font>
                     </Label>
-                    <Label fx:id="tag" text="tag">
-                        <font>
-                            <Font size="15.0" />
-                        </font>
-                    </Label>
-                    <Label fx:id="brand" text="brand">
-                        <font>
-                            <Font size="15.0" />
-                        </font>
-                    </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -86,6 +76,9 @@
                               </font>
                           </Label>
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>

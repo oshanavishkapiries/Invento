@@ -2,21 +2,29 @@ package com.invento.invento.controller;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.Reference;
 import com.invento.invento.utils.aminations.FadeIn;
-import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class InventoryController {
 
@@ -46,6 +54,17 @@ public class InventoryController {
 
     @FXML
     private TextField product_quantityInStock;
+
+    @FXML
+    private ImageView upload_img;
+
+    @FXML
+    public void initialize() {
+        Reference.InventoryController = this;
+        init();
+        loadCategories();
+        loadBrands();
+    }
 
     private List<String> tempCategories = ProductModel.getUniqueCategories();
     private List<String> tempBrands = ProductModel.getUniqueBrands();
@@ -82,12 +101,45 @@ public class InventoryController {
     }
 
     @FXML
-    public void initialize() {
-        init();
-        loadCategories();
-        loadBrands();
+    void upload_img_click(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(upload_img.getScene().getWindow());
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            upload_img.setImage(image);
+        }
     }
 
+    String save_img_click() {
+        try {
+            String folderPath = "productImg";
+            Files.createDirectories(Paths.get(folderPath));
+
+            Image image = upload_img.getImage();
+            String ReturnimagePath = null;
+            if (image != null) {
+                String uniqueFileName = UUID.randomUUID().toString() + ".png";
+                String imagePath = folderPath + "/" + uniqueFileName;
+
+                Files.copy(Paths.get(image.getUrl().substring(6)), Paths.get(imagePath), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Saved image path: " + imagePath);
+                ReturnimagePath = imagePath;
+            }
+            return ReturnimagePath;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @FXML
+    void clean_img_click() {
+        Image image = new Image(getClass().getResourceAsStream("/view/assets/icons/addPic.png"));
+        upload_img.setImage(image);
+    }
 
     @FXML
     void product_category_add_onclick(ActionEvent event) {
@@ -132,6 +184,7 @@ public class InventoryController {
         try {
             inventoryCardDto product = getInventoryCardDto();
 
+
             if (ProductModel.createProduct(product)) {
                 product_name.clear();
                 product_description.clear();
@@ -139,6 +192,7 @@ public class InventoryController {
                 product_category.setValue(null);
                 product_price.clear();
                 product_quantityInStock.clear();
+                clean_img_click();
 
                 new Alert(Alert.AlertType.INFORMATION, "Product Added Successfully").showAndWait();
                 init();
@@ -154,6 +208,7 @@ public class InventoryController {
     }
 
     private inventoryCardDto getInventoryCardDto() {
+        String imgPath = save_img_click();
         String name = product_name.getText();
         String description = product_description.getText();
         String brand = product_brand.getValue();
@@ -161,9 +216,7 @@ public class InventoryController {
         double price = Double.parseDouble(product_price.getText());
         int quantity = Integer.parseInt(product_quantityInStock.getText());
 
-        inventoryCardDto product = new inventoryCardDto(
-                0, "image-url", description, name, brand, category, price, quantity
-        );
+        inventoryCardDto product = new inventoryCardDto(0, imgPath, description, name, brand, category, price, quantity);
         return product;
     }
 }

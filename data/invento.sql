@@ -23,6 +23,7 @@ CREATE TABLE Product
     Description     VARCHAR(255),
     Brand           VARCHAR(255),
     Price           DECIMAL(10, 2),
+    ProductImgUrl   VARCHAR(255),
     QuantityInStock INT
 );
 

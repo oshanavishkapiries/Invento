@@ -26,8 +26,9 @@ public class ProductModel {
                 String brand = resultSet.getString("Brand");
                 double price = resultSet.getDouble("Price");
                 int quantity = resultSet.getInt("QuantityInStock");
+                String imageUrl = resultSet.getString("ProductImgUrl");
 
-                inventoryCardDto product = new inventoryCardDto(id, "image-url", description, name, brand, category, price, quantity);
+                inventoryCardDto product = new inventoryCardDto(id, imageUrl, description, name, brand, category, price, quantity);
                 products.add(product);
             }
 
@@ -40,8 +41,8 @@ public class ProductModel {
     }
 
     public static boolean createProduct(inventoryCardDto product) {
-        String sql = "INSERT INTO Product (Name, Category, Description, Brand, Price, QuantityInStock) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Product (Name, Category, Description, Brand, Price, QuantityInStock, ProductImgUrl) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             return CrudUtil.execute(sql,
                     product.getName(),
@@ -49,7 +50,8 @@ public class ProductModel {
                     product.getDescription(),
                     product.getBrand(),
                     product.getPrice(),
-                    product.getQuantity()
+                    product.getQuantity(),
+                    product.getImageUrl()
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,6 +85,48 @@ public class ProductModel {
             e.printStackTrace();
         }
         return brands;
+    }
+
+    public static inventoryCardDto getProductById(int productId) {
+        String sql = "SELECT * FROM Product WHERE ProductID = ?";
+        inventoryCardDto product = null;
+
+        try (ResultSet resultSet = CrudUtil.execute(sql, productId)) {
+            if (resultSet.next()) {
+                product = new inventoryCardDto(
+                        resultSet.getInt("ProductID"),
+                        resultSet.getString("ProductImgUrl"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("Brand"),
+                        resultSet.getString("Category"),
+                        resultSet.getDouble("Price"),
+                        resultSet.getInt("QuantityInStock")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+    public static boolean updateProduct(inventoryCardDto product) {
+        String sql = "UPDATE Product SET Name = ?, Category = ?, Brand = ?, Description = ?, Price = ?, QuantityInStock = ?, ProductImgUrl = ? WHERE ProductID = ?";
+        try {
+            return CrudUtil.execute(sql,
+                    product.getName(),
+                    product.getTag(),
+                    product.getBrand(),
+                    product.getDescription(),
+                    product.getPrice(),
+                    product.getQuantity(),
+                    product.getImageUrl(),
+                    product.getId()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean deleteProductById(int productId) {

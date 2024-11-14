@@ -114,22 +114,25 @@
                                        </padding>
                                     </HBox>
                                  </top>
-                                 <left>
-                                                <VBox styleClass="left-panel" BorderPane.alignment="CENTER">
+                                 <right>
+                                                <VBox alignment="CENTER" prefHeight="449.0" prefWidth="278.0" styleClass="left-panel" BorderPane.alignment="CENTER">
                                                     <children>
-                                                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="product-image">
+                                                        <ImageView fx:id="upload_img" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#upload_img_click" pickOnBounds="true" smooth="false" styleClass="product-image" VBox.vgrow="ALWAYS">
                                                             <image>
                                                                 <Image url="@../assets/icons/addPic.png" />
                                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
                                                         </ImageView>
                                                     </children>
                                                     <padding>
                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                     </padding>
                                                 </VBox>
-                                 </left>
+                                 </right>
                                  <center>
-                                                <VBox prefWidth="375.0" spacing="10.0" styleClass="center-panel" BorderPane.alignment="CENTER">
+                                                <VBox prefHeight="449.0" prefWidth="233.0" spacing="10.0" styleClass="center-panel" BorderPane.alignment="CENTER">
                                                     <children>
                                                         <Label styleClass="label-product-name" text="Enter Product name" />
                                                         <TextField fx:id="product_name" promptText="Name " styleClass="input-product-name" />
@@ -187,9 +190,9 @@
                                                     </padding>
                                                 </VBox>
                                  </center>
-                                 <right>
-                                    <VBox prefWidth="100.0" BorderPane.alignment="CENTER" />
-                                 </right>
+                                 <left>
+                                    <VBox prefHeight="449.0" prefWidth="44.0" BorderPane.alignment="CENTER" />
+                                 </left>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>

@@ -13,9 +13,9 @@ public class DBConnection {
         private final Connection connection;
         private DBConnection() throws SQLException {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/invento",
-                    "root",
-                    "root"
+                    "jdbc:mysql://sql12.freesqldatabase.com/sql12744480",
+                    "sql12744480",
+                    "zfzuqInHN6"
             );
         }
         public static DBConnection getInstance() throws SQLException {
