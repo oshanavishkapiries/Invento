@@ -25,10 +25,15 @@ public class ListView {
         }
 
         List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
-        try {
-            int row = 0;
-            int col = 0;
-            for (inventoryCardDto cardData : cardDataList) {
+        includeInGridPane(cardDataList);
+    }
+
+    public void includeInGridPane(List<inventoryCardDto> cardDataList) {
+        int row = 0;
+        int col = 0;
+
+        for (inventoryCardDto cardData : cardDataList) {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/inventory/ListCard.fxml"));
                 AnchorPane card = loader.load();
 
@@ -37,9 +42,14 @@ public class ListView {
 
                 gridPane.add(card, col, row);
                 row++;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+
+
+    public void removeElement() {
+        gridPane.getChildren().clear();
     }
 }

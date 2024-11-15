@@ -30,7 +30,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" styleClass="search-box">
                             <children>
-                                <TextField promptText="Search" styleClass="text-field" />
+                                <TextField onKeyTyped="#search_onchange" promptText="Search" styleClass="text-field" />
                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../assets/icons/search.png" />

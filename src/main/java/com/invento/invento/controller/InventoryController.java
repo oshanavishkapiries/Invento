@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
@@ -97,6 +98,27 @@ public class InventoryController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void search_onchange(KeyEvent event) {
+        System.out.println("change");
+        TextField searchField = (TextField) event.getSource();
+        String searchText = searchField.getText();
+        if (searchText == null || searchText.isEmpty()) {
+            List<inventoryCardDto> results = ProductModel.getAllProducts();
+            Reference.gridView.removeElement();
+            Reference.gridView.includeInGridPane(results);
+            Reference.listView.removeElement();
+            Reference.listView.includeInGridPane(results);
+        }
+        if (searchText != null && !searchText.isEmpty()) {
+            List<inventoryCardDto> results = ProductModel.searchProductByName(searchText);
+            Reference.gridView.removeElement();
+            Reference.gridView.includeInGridPane(results);
+            Reference.listView.removeElement();
+            Reference.listView.includeInGridPane(results);
         }
     }
 

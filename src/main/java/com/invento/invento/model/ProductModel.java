@@ -139,4 +139,32 @@ public class ProductModel {
         }
     }
 
+    public static List<inventoryCardDto> searchProductByName(String name) {
+        String sql = "SELECT * FROM Product WHERE Name LIKE ?";
+        List<inventoryCardDto> products = new ArrayList<>();
+
+        try (ResultSet resultSet = CrudUtil.execute(sql, "%" + name + "%")) {
+            while (resultSet.next()) {
+
+                int id = resultSet.getInt("ProductID");
+                String prodName = resultSet.getString("Name");
+                String category = resultSet.getString("Category");
+                String description = resultSet.getString("Description");
+                String brand = resultSet.getString("Brand");
+                double price = resultSet.getDouble("Price");
+                int quantity = resultSet.getInt("QuantityInStock");
+                String imageUrl = resultSet.getString("ProductImgUrl");
+
+                inventoryCardDto product = new inventoryCardDto(id, imageUrl, description, prodName, brand, category, price, quantity);
+                products.add(product);
+            }
+
+            return products;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
 }
