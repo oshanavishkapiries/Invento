@@ -2,6 +2,7 @@ package com.invento.invento.controller;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import com.invento.invento.utils.aminations.FadeIn;
 import javafx.collections.FXCollections;
@@ -97,37 +98,34 @@ public class InventoryController {
             });
 
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());
         }
     }
 
     @FXML
     void search_onchange(KeyEvent event) {
-        System.out.println("change");
         TextField searchField = (TextField) event.getSource();
         String searchText = searchField.getText();
+        List<inventoryCardDto> results;
+
         if (searchText == null || searchText.isEmpty()) {
-            List<inventoryCardDto> results = ProductModel.getAllProducts();
-            Reference.gridView.removeElement();
-            Reference.gridView.includeInGridPane(results);
-            Reference.listView.removeElement();
-            Reference.listView.includeInGridPane(results);
+            results = ProductModel.getAllProducts();
+        } else {
+            results = ProductModel.searchProductByName(searchText);
         }
-        if (searchText != null && !searchText.isEmpty()) {
-            List<inventoryCardDto> results = ProductModel.searchProductByName(searchText);
-            Reference.gridView.removeElement();
-            Reference.gridView.includeInGridPane(results);
-            Reference.listView.removeElement();
-            Reference.listView.includeInGridPane(results);
-        }
+
+        Reference.gridView.removeElement();
+        Reference.gridView.includeInGridPane(results);
+        Reference.listView.removeElement();
+        Reference.listView.includeInGridPane(results);
     }
 
     @FXML
     void upload_img_click(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         File selectedFile = fileChooser.showOpenDialog(upload_img.getScene().getWindow());
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
@@ -141,18 +139,16 @@ public class InventoryController {
             Files.createDirectories(Paths.get(folderPath));
 
             Image image = upload_img.getImage();
-            String ReturnimagePath = null;
             if (image != null) {
                 String uniqueFileName = UUID.randomUUID().toString() + ".png";
                 String imagePath = folderPath + "/" + uniqueFileName;
 
                 Files.copy(Paths.get(image.getUrl().substring(6)), Paths.get(imagePath), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Saved image path: " + imagePath);
-                ReturnimagePath = imagePath;
+                return imagePath;
             }
-            return ReturnimagePath;
+            return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertUtil.showErrorAlert("Error", "Image Saving Error", e.getMessage());
             return null;
         }
     }
@@ -175,9 +171,9 @@ public class InventoryController {
             if (!tempCategories.contains(newCategory)) {
                 tempCategories.add(newCategory);
                 loadCategories();
-                new Alert(Alert.AlertType.INFORMATION, "Category added successfully!").showAndWait();
+                AlertUtil.showAlert("Success", "Category Added", "Category added successfully!");
             } else {
-                new Alert(Alert.AlertType.WARNING, "Category already exists!").showAndWait();
+                AlertUtil.showWarningAlert("Warning", "Category Exists", "Category already exists!");
             }
         });
     }
@@ -194,9 +190,9 @@ public class InventoryController {
             if (!tempBrands.contains(newBrand)) {
                 tempBrands.add(newBrand);
                 loadBrands();
-                new Alert(Alert.AlertType.INFORMATION, "Brand added successfully!").showAndWait();
+                AlertUtil.showAlert("Success", "Brand Added", "Brand added successfully!");
             } else {
-                new Alert(Alert.AlertType.WARNING, "Brand already exists!").showAndWait();
+                AlertUtil.showWarningAlert("Warning", "Brand Exists", "Brand already exists!");
             }
         });
     }
@@ -205,7 +201,6 @@ public class InventoryController {
     void product_submit_onclick(ActionEvent event) {
         try {
             inventoryCardDto product = getInventoryCardDto();
-
 
             if (ProductModel.createProduct(product)) {
                 product_name.clear();
@@ -216,16 +211,16 @@ public class InventoryController {
                 product_quantityInStock.clear();
                 clean_img_click();
 
-                new Alert(Alert.AlertType.INFORMATION, "Product Added Successfully").showAndWait();
+                AlertUtil.showAlert("Success", "Product Added", "Product added successfully!");
                 init();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Product Adding Failed").showAndWait();
+                AlertUtil.showErrorAlert("Error", "Product Adding Error", "Failed to add product.");
             }
 
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid price or quantity").showAndWait();
+            AlertUtil.showErrorAlert("Error", "Invalid Input", "Invalid price or quantity.");
         } catch (NullPointerException e) {
-            new Alert(Alert.AlertType.ERROR, "Please select brand and category").showAndWait();
+            AlertUtil.showErrorAlert("Error", "Missing Input", "Please select brand and category.");
         }
     }
 
@@ -238,7 +233,6 @@ public class InventoryController {
         double price = Double.parseDouble(product_price.getText());
         int quantity = Integer.parseInt(product_quantityInStock.getText());
 
-        inventoryCardDto product = new inventoryCardDto(0, imgPath, description, name, brand, category, price, quantity);
-        return product;
+        return new inventoryCardDto(0, imgPath, description, name, brand, category, price, quantity);
     }
 }

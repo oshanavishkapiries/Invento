@@ -2,6 +2,7 @@ package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,13 +21,21 @@ public class GridView {
     public void initialize() {
         Reference.gridView = this;
 
-        if (!gridPane.getChildren().isEmpty()) {
-            gridPane.getChildren().clear();
+        try {
+            if (!gridPane.getChildren().isEmpty()) {
+                gridPane.getChildren().clear();
+            }
+
+            List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
+
+            if (cardDataList.isEmpty()) {
+                AlertUtil.showAlert("Information", "No Products Found", "No products are available to display.");
+            } else {
+                includeInGridPane(cardDataList);
+            }
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());
         }
-
-        List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
-
-        includeInGridPane(cardDataList);
     }
 
     public void includeInGridPane(List<inventoryCardDto> cardDataList) {
@@ -49,15 +58,16 @@ public class GridView {
                     row++;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                AlertUtil.showErrorAlert("Error", "Card Loading Error", e.getMessage());
             }
         }
     }
 
-
     public void removeElement() {
-        gridPane.getChildren().clear();
+        try {
+            gridPane.getChildren().clear();
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Clearing Grid Error", e.getMessage());
+        }
     }
-
-
 }

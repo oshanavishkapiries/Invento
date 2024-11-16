@@ -9,32 +9,47 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="52.0" prefWidth="700.0" stylesheets="@../../../css/component/sheet02.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.order.CustomerCard">
+<AnchorPane prefHeight="70.0" prefWidth="700.0" stylesheets="@../../../css/component/sheet02.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.order.CustomerCard">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="2.0" prefHeight="100.0" prefWidth="698.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label fx:id="name" text="name">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="phone" text="phone">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="email" text="email">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="address" text="address">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="name_" text="name">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="phone" text="phone">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="email" text="email">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="address" text="address">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="223.0" spacing="5.0">
                     <children>
                         <Button fx:id="btn_edit" mnemonicParsing="false" prefHeight="25.0" prefWidth="10000.0" styleClass="button-add-category" text="edit">
                             <graphic>

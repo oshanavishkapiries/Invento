@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class CustomerDto {
 
-    private int customerId;
+    private int customerID;
     private String name;
     private String phone;
     private String email;
     private String address;
 
 
-    public CustomerDto(int customerId, String name, String phone, String email, String address) {
-        this.customerId = customerId;
+    public CustomerDto(int customerID, String name, String phone, String email, String address) {
+        this.customerID = customerID;
         this.name = name;
         this.phone = phone;
         this.email = email;

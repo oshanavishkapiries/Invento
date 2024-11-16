@@ -1,14 +1,18 @@
 package com.invento.invento.controller.components.order;
 
 import com.invento.invento.dto.CustomerDto;
+import com.invento.invento.model.CustomerModel;
+import com.invento.invento.utils.AlertUtil;
+import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
-public class CustomerCard {
+import java.sql.SQLException;
 
-    @FXML
-    private Label address;
+public class CustomerCard {
 
     @FXML
     private Button btn_delete;
@@ -20,17 +24,53 @@ public class CustomerCard {
     private Label email;
 
     @FXML
-    private Label name;
+    private Label name_;
 
     @FXML
     private Label phone;
 
+    @FXML
+    private Label address;
+
+    private int Id;
+
+
+    @FXML
+    private void initialize() {
+        btn_edit.setOnAction(e -> onEditClick());
+        btn_delete.setOnAction(e -> onDeleteClick());
+    }
+
+    private void onEditClick() {
+        Reference.OrderController.customer_update_data_set_load(Id);
+    }
+
+    private void onDeleteClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            try {
+                if (CustomerModel.deleteCustomer(Id)) {
+                    AlertUtil.showAlert("Success", "Customer Deleted", "Customer deleted successfully.");
+                    Reference.OrderController.populateCustomerListView();
+                } else {
+                    AlertUtil.showErrorAlert("Error", "Deletion Error", "Failed to delete customer.");
+                }
+            } catch (SQLException e) {
+                AlertUtil.showErrorAlert("Error", "Database Error", e.getMessage());
+            }
+        }
+    }
+
 
     public void setCustomer(CustomerDto customer) {
-        this.address.setText(customer.getAddress());
+        this.Id = customer.getCustomerID();
         this.email.setText(customer.getEmail());
-        this.name.setText(customer.getName());
+        this.name_.setText(customer.getName());
         this.phone.setText(customer.getPhone());
+        this.address.setText(customer.getAddress());
     }
+
 
 }

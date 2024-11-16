@@ -11,8 +11,8 @@ import java.util.List;
 public class CustomerModel {
 
     public static boolean createCustomer(CustomerDto customer) throws SQLException {
-        String sql = "INSERT INTO Customer (CustomerID, Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?)";
-        return CrudUtil.execute(sql, customer.getCustomerId(), customer.getName(), customer.getPhone(), customer.getEmail(), customer.getAddress());
+        String sql = "INSERT INTO Customer (Name, Phone, Email, Address) VALUES (?, ?, ?, ?)";
+        return CrudUtil.execute(sql, customer.getName(), customer.getPhone(), customer.getEmail(), customer.getAddress());
     }
 
     public static List<CustomerDto> getAllCustomers() throws SQLException {
@@ -46,11 +46,19 @@ public class CustomerModel {
 
     public static boolean updateCustomer(CustomerDto customer) throws SQLException {
         String sql = "UPDATE Customer SET Name = ?, Phone = ?, Email = ?, Address = ? WHERE CustomerID = ?";
-        return CrudUtil.execute(sql, customer.getName(), customer.getPhone(), customer.getEmail(), customer.getAddress(), customer.getCustomerId());
+        return CrudUtil.execute(sql, customer.getName(), customer.getPhone(), customer.getEmail(), customer.getAddress(), customer.getCustomerID());
+
     }
 
     public static boolean deleteCustomer(int customerId) throws SQLException {
         String sql = "DELETE FROM Customer WHERE CustomerID = ?";
         return CrudUtil.execute(sql, customerId);
+    }
+
+    public static boolean isEmailExist(String email) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Customer WHERE Email = ?";
+        ResultSet resultSet = CrudUtil.execute(sql, email);
+        resultSet.next();
+        return resultSet.getInt(1) > 0;
     }
 }

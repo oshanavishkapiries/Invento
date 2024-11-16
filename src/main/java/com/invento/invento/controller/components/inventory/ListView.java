@@ -2,6 +2,7 @@ package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,17 +21,25 @@ public class ListView {
     public void initialize() {
         Reference.listView = this;
 
-        if (!gridPane.getChildren().isEmpty()) {
-            gridPane.getChildren().clear();
-        }
+        try {
+            if (!gridPane.getChildren().isEmpty()) {
+                gridPane.getChildren().clear();
+            }
 
-        List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
-        includeInGridPane(cardDataList);
+            List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
+
+            if (cardDataList.isEmpty()) {
+                AlertUtil.showAlert("Information", "No Products Found", "No products are available to display in the list.");
+            } else {
+                includeInGridPane(cardDataList);
+            }
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());
+        }
     }
 
     public void includeInGridPane(List<inventoryCardDto> cardDataList) {
         int row = 0;
-        int col = 0;
 
         for (inventoryCardDto cardData : cardDataList) {
             try {
@@ -40,16 +49,19 @@ public class ListView {
                 BothCard cardController = loader.getController();
                 cardController.setData(cardData);
 
-                gridPane.add(card, col, row);
+                gridPane.add(card, 0, row);
                 row++;
             } catch (IOException e) {
-                e.printStackTrace();
+                AlertUtil.showErrorAlert("Error", "Card Loading Error", e.getMessage());
             }
         }
     }
 
-
     public void removeElement() {
-        gridPane.getChildren().clear();
+        try {
+            gridPane.getChildren().clear();
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Clearing List Error", e.getMessage());
+        }
     }
 }

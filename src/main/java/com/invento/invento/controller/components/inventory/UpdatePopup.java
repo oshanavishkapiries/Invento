@@ -2,6 +2,7 @@ package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
 import com.invento.invento.model.ProductModel;
+import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,10 +49,14 @@ public class UpdatePopup {
     private inventoryCardDto cardData;
 
     public void initialize(int id) {
-        cardData = ProductModel.getProductById(id);
-        loadCategories();
-        loadBrands();
-        initFields();
+        try {
+            cardData = ProductModel.getProductById(id);
+            loadCategories();
+            loadBrands();
+            initFields();
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Failed to load product", e.getMessage());
+        }
     }
 
     private List<String> tempCategories = ProductModel.getUniqueCategories();
@@ -146,17 +151,15 @@ public class UpdatePopup {
                     String uniqueFileName = UUID.randomUUID().toString() + ".png";
                     String imagePath = folderPath + "/" + uniqueFileName;
                     Files.copy(sourceFile.toPath(), Paths.get(imagePath), StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("Saved image path: " + imagePath);
                     returnImagePath = imagePath;
                 }
             }
             return returnImagePath;
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertUtil.showErrorAlert("Error", "Image Saving Failed", e.getMessage());
             return null;
         }
     }
-
 
     @FXML
     void product_update_onclick(ActionEvent event) {
@@ -174,6 +177,8 @@ public class UpdatePopup {
             new Alert(Alert.AlertType.ERROR, "Invalid price or quantity").showAndWait();
         } catch (NullPointerException e) {
             new Alert(Alert.AlertType.ERROR, "Please select brand and category").showAndWait();
+        } catch (Exception e) {
+            AlertUtil.showErrorAlert("Error", "Product Update Error", e.getMessage());
         }
     }
 
