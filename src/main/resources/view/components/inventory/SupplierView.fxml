@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.inventory.SupplierController">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="SUPPLIER MANAGE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <content>
+                  <VBox fx:id="supplierListView" alignment="TOP_CENTER" prefWidth="100.0" spacing="5.0" />
+               </content>
+            </ScrollPane>
+         </center>
+         <right>
+            <VBox prefHeight="274.0" prefWidth="279.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" styleClass="search-box">
+                     <children>
+                        <TextField onKeyTyped="#supplier_search_onchange" prefHeight="25.0" prefWidth="257.0" promptText="Supplier Search" styleClass="text-field" />
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="449.0" prefWidth="233.0" spacing="10.0" styleClass="center-panel">
+                     <children>
+                        <Label styleClass="label-product-name" text="name" />
+                        <TextField fx:id="supplier_input_name" onKeyTyped="#supplier_input_name_onchange" promptText="Name " styleClass="input-product-name" />
+                        <Label layoutX="10.0" layoutY="10.0" styleClass="label-product-description" text="phone" />
+                        <TextField fx:id="supplier_input_phone" promptText="Phone" styleClass="input-product-name" />
+                        <Label layoutX="15.0" layoutY="87.0" styleClass="label-product-description" text="email" />
+                        <TextField fx:id="supplier_input_email" promptText="Email" styleClass="input-product-name" />
+                        <Label layoutX="15.0" layoutY="159.0" styleClass="label-product-description" text="address" />
+                        <TextArea fx:id="supplier_input_address" prefHeight="78.0" prefWidth="269.0" promptText="Address" styleClass="textarea-product-description" />
+                        <HBox styleClass="product-category-box" />
+                        <HBox layoutX="10.0" layoutY="129.0" styleClass="brand-category-box" />
+                        <Button fx:id="supplier_done_button" mnemonicParsing="false" onMouseClicked="#supplier_done_onclick" prefHeight="40.0" prefWidth="10000.0" styleClass="button-submit" text="Create" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

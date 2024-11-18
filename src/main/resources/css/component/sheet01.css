@@ -139,3 +139,14 @@
     -fx-opacity: 0.8;
 }
 
+.table-view .column-header-background {
+    -fx-padding: 5;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+}
+

@@ -34,6 +34,9 @@ public class InventoryController {
     private BorderPane com_borderpane;
 
     @FXML
+    private BorderPane supplierView;
+
+    @FXML
     private Button gridButton;
 
     @FXML
@@ -85,7 +88,9 @@ public class InventoryController {
         try {
             AnchorPane gridView = FXMLLoader.load(getClass().getResource("/view/components/inventory/GridView.fxml"));
             AnchorPane listViewContent = FXMLLoader.load(getClass().getResource("/view/components/inventory/ListView.fxml"));
+            AnchorPane SupplierView = FXMLLoader.load(getClass().getResource("/view/components/inventory/SupplierView.fxml"));
             com_borderpane.setCenter(gridView);
+            supplierView.setCenter(SupplierView);
 
             gridButton.setOnAction(event -> {
                 com_borderpane.setCenter(gridView);
@@ -98,6 +103,7 @@ public class InventoryController {
             });
 
         } catch (IOException e) {
+            e.printStackTrace();
             AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());
         }
     }

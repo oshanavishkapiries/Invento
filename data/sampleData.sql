@@ -40,13 +40,6 @@ VALUES (1, 1, 1, 'David Green', '101 Main St, City, Country', '555-1001', 'david
        (3, 3, 3, 'Frank Blue', '303 Cedar St, City, Country', '555-1003', 'frank@example.com', 'password3',
         'Technician', 40000.00);
 
--- Insert data into Inventory table
-INSERT INTO Inventory (InventoryID, ProductID, QuantityAvailable, Location)
-VALUES (1, 1, 30, 'Warehouse A'),
-       (2, 2, 75, 'Warehouse B'),
-       (3, 3, 150, 'Warehouse C'),
-       (4, 4, 25, 'Warehouse A');
-
 -- Insert data into Warranty table
 INSERT INTO Warranty (WarrantyID, ProductID, WarrantyPeriod, CoverageDetails)
 VALUES (1, 1, '2 years', 'Covers manufacturing defects and hardware failure'),
@@ -67,9 +60,9 @@ VALUES (1, 1, 1, 1, 1200.00),
        (4, 3, 4, 1, 350.00);
 
 -- Insert data into Purchase table
-INSERT INTO Purchase (PurchaseID, InventoryID, SupplierID, EmployeeID, PurchaseDate, TotalCost)
-VALUES (1, 1, 1, 2, '2024-10-01', 12000.00),
-       (2, 2, 2, 2, '2024-10-02', 7500.00);
+INSERT INTO Purchase (PurchaseID, SupplierID, EmployeeID, PurchaseDate, TotalCost)
+VALUES (1,  1, 2, '2024-10-01', 12000.00),
+       (2,  2, 2, '2024-10-02', 7500.00);
 
 -- Insert data into Service table
 INSERT INTO Service (ServiceID, EmployeeID, ProductID, ServiceDate, ServiceDescription)

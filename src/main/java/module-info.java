@@ -9,6 +9,7 @@ module com.invento.invento {
     opens com.invento.invento.controller.layout to javafx.fxml;
     opens com.invento.invento.controller.components.inventory to javafx.fxml;
     opens com.invento.invento.controller.components.order to javafx.fxml;
+    opens com.invento.invento.controller.components.employee to javafx.fxml;
 
     exports com.invento.invento;
 }

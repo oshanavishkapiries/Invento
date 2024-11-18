@@ -30,7 +30,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" styleClass="search-box">
                             <children>
-                                <TextField onKeyTyped="#search_onchange" promptText="Search" styleClass="text-field" />
+                                <TextField onKeyTyped="#search_onchange" promptText="Product Search" styleClass="text-field" />
                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../assets/icons/search.png" />
@@ -205,6 +205,22 @@
                                 </ImageView>
                             </graphic>
                         </Tab>
+                  <Tab text="Supplier">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="add-item-tab">
+                           <children>
+                              <BorderPane fx:id="supplierView" layoutX="144.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="main-borderpane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="tab-icon">
+                           <image>
+                              <Image url="@../assets/icons/suppliy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
                     </tabs>
                 </TabPane>
             </center>

@@ -65,16 +65,6 @@ CREATE TABLE Employee
     FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID) ON DELETE CASCADE
 );
 
--- Create the Inventory table
-CREATE TABLE Inventory
-(
-    InventoryID       INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID         INT,
-    QuantityAvailable INT,
-    Location          VARCHAR(255),
-    FOREIGN KEY (ProductID) REFERENCES Product (ProductID) ON DELETE CASCADE
-);
-
 -- Create the Warranty table
 CREATE TABLE Warranty
 (
@@ -111,12 +101,10 @@ CREATE TABLE OrderDetail
 CREATE TABLE Purchase
 (
     PurchaseID   INT PRIMARY KEY AUTO_INCREMENT,
-    InventoryID  INT,
     SupplierID   INT,
     EmployeeID   INT,
     PurchaseDate DATE,
     TotalCost    DECIMAL(10, 2),
-    FOREIGN KEY (InventoryID) REFERENCES Inventory (InventoryID) ON DELETE CASCADE,
     FOREIGN KEY (SupplierID) REFERENCES Supplier (SupplierID) ON DELETE CASCADE,
     FOREIGN KEY (EmployeeID) REFERENCES Employee (EmployeeID) ON DELETE CASCADE
 );
