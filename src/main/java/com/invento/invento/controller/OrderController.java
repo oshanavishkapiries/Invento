@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -37,14 +38,25 @@ public class OrderController {
     @FXML
     private TextField customer_input_phone;
 
+    @FXML
+    private BorderPane place_Order;
+
     private int temp_id;
 
 
     @FXML
     public void initialize() {
-        Reference.OrderController = this;
-        populateCustomerListView();
-        customer_input_done_btn.setDisable(true);
+        try {
+            AnchorPane PlaceOredr = FXMLLoader.load(getClass().getResource("/view/components/order/PlaceOredr.fxml"));
+
+            place_Order.setCenter(PlaceOredr);
+            Reference.OrderController = this;
+            populateCustomerListView();
+            customer_input_done_btn.setDisable(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());
+        }
     }
 
     @FXML
