@@ -61,8 +61,8 @@ CREATE TABLE Employee
     Password     VARCHAR(255),
     Position     VARCHAR(255),
     Salary       DECIMAL(10, 2),
-    FOREIGN KEY (RoleID) REFERENCES Role (RoleID) ,
-    FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID)
+    FOREIGN KEY (RoleID) REFERENCES Role (RoleID) ON DELETE CASCADE,
+    FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID) ON DELETE CASCADE
 );
 
 -- Create the Warranty table

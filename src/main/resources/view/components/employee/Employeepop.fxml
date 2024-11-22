@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="558.0" prefWidth="1050.0" stylesheets="@../../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.employee.EmployeepopController">
+   <children>
+      <BorderPane layoutX="155.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="label-product-image" text="EMPLOYEE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="518.0" prefWidth="350.0" spacing="10.0" styleClass="center-panel" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="10.0" layoutY="52.0" styleClass="label-product-category" text="Name" />
+                  <TextField fx:id="__name" promptText="oshan Avishaka" styleClass="input-price" />
+                  <Label layoutX="30.0" layoutY="15.0" styleClass="label-product-category" text="Email" />
+                  <TextField fx:id="email" layoutX="30.0" layoutY="42.0" promptText="oshan@gmail.com" styleClass="input-price" />
+                  <Label layoutX="30.0" layoutY="87.0" styleClass="label-product-category" text="Position" />
+                  <TextField fx:id="position" layoutX="30.0" layoutY="114.0" promptText="intern" styleClass="input-price" />
+                  <Label layoutX="30.0" layoutY="159.0" styleClass="label-product-category" text="Salary" />
+                  <TextField fx:id="salary" layoutX="30.0" layoutY="186.0" promptText="100.000" styleClass="input-price" />
+                  <Label layoutX="30.0" layoutY="15.0" styleClass="label-product-category" text="Set Role" />
+                  <HBox styleClass="product-category-box">
+                     <children>
+                        <ComboBox fx:id="role_combo" prefHeight="25.0" prefWidth="10000.0" promptText="Role" styleClass="combo-product-category" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="30.0" layoutY="87.0" styleClass="label-product-category" text="Set Department" />
+                  <ComboBox fx:id="department_combo" prefHeight="25.0" prefWidth="10000.0" promptText="Department" styleClass="combo-brand-category" />
+                  <HBox layoutX="10.0" layoutY="129.0" styleClass="brand-category-box" />
+                  <Button fx:id="done_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="10000.0" styleClass="button-submit" text="Done" VBox.vgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/correct.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </center>
+         <right>
+            <VBox prefHeight="518.0" prefWidth="350.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="10.0" layoutY="15.0" styleClass="label-product-name" text="Telephone">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="phone" layoutX="10.0" layoutY="42.0" promptText="071 0000 000" styleClass="input-product-name" />
+                  <Label fx:id="pass_label_conform" styleClass="label-product-name" text="Password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="password" promptText=".........." styleClass="input-product-name" />
+                  <Label fx:id="pass_label" layoutX="10.0" layoutY="15.0" styleClass="label-product-name" text="Conform Password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="conform_password" layoutX="10.0" layoutY="32.0" promptText="..........." styleClass="input-product-name" />
+                  <Label styleClass="label-product-description" text="Address">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="address" prefHeight="172.0" prefWidth="318.0" promptText="202 Elm St, City, Country" styleClass="textarea-product-description">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" right="20.0" top="5.0" />
+               </padding>
+            </VBox>
+         </right>
+         <left>
+            <VBox alignment="CENTER" prefHeight="518.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="338.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/emp.gif" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

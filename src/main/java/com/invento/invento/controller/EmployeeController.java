@@ -14,7 +14,7 @@ public class EmployeeController {
     private BorderPane department_view;
 
     @FXML
-    private BorderPane employeer_view;
+    private BorderPane employerview;
 
     @FXML
     private BorderPane role_view;
@@ -27,8 +27,12 @@ public class EmployeeController {
         try {
             AnchorPane RoleView = FXMLLoader.load(getClass().getResource("/view/components/employee/RoleView.fxml"));
             AnchorPane DepartmentView = FXMLLoader.load(getClass().getResource("/view/components/employee/DepartmentView.fxml"));
+            AnchorPane EmployerView = FXMLLoader.load(getClass().getResource("/view/components/employee/EmployeeView.fxml"));
+
             role_view.setCenter(RoleView);
             department_view.setCenter(DepartmentView);
+            employerview.setCenter(EmployerView);
+
         } catch (IOException e) {
             e.printStackTrace();
             AlertUtil.showErrorAlert("Error", "Initialization Error", e.getMessage());

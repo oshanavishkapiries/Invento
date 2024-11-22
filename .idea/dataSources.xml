@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sql12744480@sql12.freesqldatabase.com" uuid="0efa8378-40e2-40a8-973b-82048b71f374">
+    <data-source source="LOCAL" name="invento" uuid="93c51d2a-8c04-4332-a101-1a8b7691c587">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://sql12.freesqldatabase.com:3306/sql12744480</jdbc-url>
+      <jdbc-url>jdbc:mysql://invento-oshanavishka06-7e1d.e.aivencloud.com:25017/defaultdb</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

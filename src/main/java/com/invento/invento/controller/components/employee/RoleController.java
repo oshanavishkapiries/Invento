@@ -43,7 +43,6 @@ public class RoleController implements RDCard {
         });
         search_input.setOnKeyTyped(e -> {
             populate(RoleModel.searchRole(search_input.getText()));
-
         });
     }
 

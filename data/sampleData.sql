@@ -14,10 +14,10 @@ VALUES (1, 'Sales', 'Building A'),
 
 -- Insert data into Product table
 INSERT INTO Product (ProductID, Name, Category, Description, Brand, Price, QuantityInStock, ProductImgUrl)
-VALUES (1, 'Laptop', 'Electronics', '15-inch display, 16GB RAM, 512GB SSD', 'BrandA', 1200.00, 50, ''),
-       (2, 'Smartphone', 'Electronics', '6.5-inch display, 128GB storage, dual camera', 'BrandB', 800.00, 100, ''),
-       (3, 'Headphones', 'Accessories', 'Over-ear, noise-canceling, Bluetooth', 'BrandC', 150.00, 200, ''),
-       (4, 'Monitor', 'Electronics', '24-inch, Full HD, 75Hz refresh rate', 'BrandD', 300.00, 30, '');
+VALUES (1, 'Laptop', 'Electronics', '15-inch display, 16GB RAM, 512GB SSD', 'BrandA', 1200.00, 50, 'productImg/dbb2a63b-4782-49d5-bbb8-771e979dfb0b.png'),
+       (2, 'Smartphone', 'Electronics', '6.5-inch display, 128GB storage, dual camera', 'BrandB', 800.00, 100, 'productImg/0737d333-e141-45ba-bf9a-8d8f3b96900a.png'),
+       (3, 'Headphones', 'Accessories', 'Over-ear, noise-canceling, Bluetooth', 'BrandC', 150.00, 200, 'productImg/28c893db-c70b-443a-a4b6-44e4b0658e93.png'),
+       (4, 'Monitor', 'Electronics', '24-inch, Full HD, 75Hz refresh rate', 'BrandD', 300.00, 30, 'productImg/c1696e95-a34f-43cb-87e0-3e462bca8c9f.png');
 
 
 -- Insert data into Supplier table
