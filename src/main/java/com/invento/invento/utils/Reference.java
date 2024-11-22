@@ -1,5 +1,6 @@
 package com.invento.invento.utils;
 
+import com.invento.invento.controller.DashBoardController;
 import com.invento.invento.controller.OrderController;
 import com.invento.invento.controller.components.employee.EmployeeViewController;
 import com.invento.invento.controller.components.inventory.GridView;
@@ -17,4 +18,5 @@ public class Reference {
     public static OrderController OrderController;
     public static SupplierController SupplierController;
     public static EmployeeViewController EmployeeViewController;
+    public static DashBoardController DashBoardController;
 }

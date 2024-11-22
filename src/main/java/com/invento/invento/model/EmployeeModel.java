@@ -97,4 +97,14 @@ public class EmployeeModel {
         }
         return EmployeeDtos;
     }
+
+    public static EmployeeDto getEmployeeByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM Employee WHERE Email = ?";
+        try (ResultSet resultSet = CrudUtil.execute(sql, email)) {
+            while (resultSet.next()) {
+                return  new EmployeeDto(resultSet.getInt("EmployeeID"), resultSet.getString("Email"), resultSet.getString("Password"));
+            }
+        }
+        return null;
+    }
 }

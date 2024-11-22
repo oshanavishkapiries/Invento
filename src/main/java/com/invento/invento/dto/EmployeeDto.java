@@ -37,5 +37,11 @@ public class EmployeeDto {
 
     }
 
+    public EmployeeDto(int employeeID,String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.employeeID = employeeID;
+    }
+
 
 }
