@@ -31,7 +31,7 @@ public class dashLayout implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        loadView("/view/pages/DashBoardPage.fxml");
+        loadView("/view/pages/InventoryPage.fxml");
 
         ArrayList<btnData> nb = new ArrayList<>();
 

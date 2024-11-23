@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/component/sheet01.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.LoginController">
    <children>
-      <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <left>
             <VBox alignment="CENTER" prefHeight="400.0" prefWidth="305.0" BorderPane.alignment="CENTER">
                <children>
@@ -61,6 +61,13 @@
          <right>
             <VBox prefHeight="400.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
          </right>
+         <top>
+            <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@assets/logo.png" />
+               </image>
+            </ImageView>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

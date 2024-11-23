@@ -14,8 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="1102.0" stylesheets="@../../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.order.PlaceOrderController">
+<AnchorPane prefHeight="400.0" prefWidth="1102.0" stylesheets="@../../../css/component/sheet01.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.order.PlaceOrderController">
    <children>
       <BorderPane layoutX="68.0" layoutY="47.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -52,47 +53,76 @@
                      <children>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css">
                            <children>
-                              <HBox layoutX="38.0" layoutY="-18.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="CENTER" layoutX="38.0" layoutY="-18.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="total prize" />
-                                    <Label fx:id="total_prize" layoutX="10.0" layoutY="10.0" text="input" />
+                                    <Label style="-fx-font-weight: bold;" text="TOTAL = ">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="total_prize" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="00">
+                                       <font>
+                                          <Font name="System Bold" size="25.0" />
+                                       </font></Label>
                                  </children>
                               </HBox>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css" GridPane.columnIndex="1">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="item count" />
-                                    <Label fx:id="Item_count" layoutX="10.0" layoutY="10.0" text="input" />
+                                    <Label style="-fx-font-weight: bold;" text="ITEM COUNT = ">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="Item_count" layoutX="10.0" layoutY="10.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="00">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></Label>
                                  </children>
                               </HBox>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css" GridPane.columnIndex="2">
                            <children>
-                              <Button fx:id="place_order" layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="278.0" text="place order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button fx:id="place_order" layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="278.0" styleClass="button-submit" text="PLACE ORDER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css" GridPane.rowIndex="1">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="Set discount" />
-                                    <TextField fx:id="set_discount" />
+                                    <Label style="-fx-font-weight: bold;" text="SET DISCOUNT = ">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></Label>
+                                    <TextField fx:id="set_discount" prefWidth="76.0" styleClass="combo-product-category" />
+                                    <Label layoutX="43.0" layoutY="39.0" style="-fx-font-weight: bold;" text="\%">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </HBox>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <Button fx:id="print_order" layoutX="120.0" layoutY="28.0" mnemonicParsing="false" text="Print " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button fx:id="print_order" layoutX="120.0" layoutY="28.0" mnemonicParsing="false" style="-fx-background-color: yellow;" text="PRINT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="50.0" stylesheets="@../../../css/component/sheet02.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
-                              <Button fx:id="cancel_order" layoutX="99.0" layoutY="28.0" mnemonicParsing="false" text="cancel order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button fx:id="cancel_order" layoutX="99.0" layoutY="28.0" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" text="CANCEL ORDER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
                            </children>
                         </AnchorPane>
                      </children>
