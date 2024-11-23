@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="50.0" prefWidth="1095.0" stylesheets="@../../../css/component/sheet02.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.invento.invento.controller.components.order.OrderListCard">
+    <children>
+        <HBox layoutX="1.0" layoutY="1.0" stylesheets="@../../../css/component/sheet02.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+            <children>
+                <VBox alignment="CENTER_LEFT" maxWidth="150.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="buy_p_name" text="SmartPhone">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="10.0" />
+                    </padding>
+                </VBox>
+                <HBox HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/icons/money.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-font-weight: bold;" text="Rs.">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="buy_p_prize" style="-fx-font-weight: bold;" text=" 10000">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="buy_p_prize2" layoutX="69.0" layoutY="23.0" style="-fx-font-weight: bold;" text="Total Prize : ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label style="-fx-font-weight: bold;" text="Rs.">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="total_prize" style="-fx-text-fill: green; -fx-font-weight: bold;" text=" 10000">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+               </children>
+            </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="5.0">
+                    <children>
+                        <Button fx:id="buy_p_minus" mnemonicParsing="false" style="-fx-background-color: black; -fx-text-fill: white;">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/icons/minus-order.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <TextField fx:id="buy_p_qty_input" prefWidth="58.0" styleClass="input-quantity" />
+                        <Button fx:id="buy_p_plus" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-text-fill: white;">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/icons/plue_order.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="160.0" layoutY="10.0" prefHeight="100.0" spacing="5.0">
+                    <children>
+                        <Button fx:id="buy_p_delete" mnemonicParsing="false" style="-fx-background-color: #e53935; -fx-text-fill: white;">
+                            <graphic>
+                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/icons/delete.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

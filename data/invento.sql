@@ -82,7 +82,7 @@ CREATE TABLE `Order`
     CustomerID  INT,
     OrderDate   DATE,
     TotalAmount DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Customer (CustomerID) ON DELETE CASCADE
+    FOREIGN KEY (CustomerID) REFERENCES Customer (CustomerID)
 );
 
 -- Create the OrderDetail table
