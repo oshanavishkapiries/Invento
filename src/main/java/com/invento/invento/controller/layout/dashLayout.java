@@ -35,10 +35,8 @@ public class dashLayout implements Initializable {
 
         ArrayList<btnData> nb = new ArrayList<>();
 
-        nb.add(new btnData("/view/pages/DashBoardPage.fxml", "Dashboard"));
         nb.add(new btnData("/view/pages/InventoryPage.fxml", "Inventory"));
         nb.add(new btnData("/view/pages/OrderPage.fxml", "Order"));
-        nb.add(new btnData("/view/pages/PaymentPage.fxml", "Payment"));
         nb.add(new btnData("/view/pages/EmployeePage.fxml", "Employee"));
 
         for (btnData buttonData : nb) {
