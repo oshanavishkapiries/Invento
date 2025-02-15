@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.employee;
 
 import com.invento.invento.dto.RoleDto;
-import com.invento.invento.model.RoleModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.RoleService;
 import com.invento.invento.utils.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,41 +34,43 @@ public class RoleController implements RDCard {
 
     private int temp_id;
 
+    private final RoleService roleService;
+
+    public RoleController() {
+        this.roleService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.ROLE);
+    }
 
     @FXML
     private void initialize() {
-        init();
+        submit_btn.setOnAction(e -> onSubmitClick());
         name_input.setOnKeyTyped(e -> submit_btn.setDisable(name_input.getText().isEmpty()));
-        submit_btn.setOnAction(e -> {
-            onSubmitClick();
-        });
-        search_input.setOnKeyTyped(e -> {
-            populate(RoleModel.searchRole(search_input.getText()));
-        });
+        search_input.setOnKeyTyped(e -> populate(roleService.searchRole(search_input.getText())));
+        init();
     }
 
     private void init() {
         submit_btn.setDisable(true);
-        populate(RoleModel.getAllRoles());
+        populate(roleService.getAllRoles());
     }
 
     public void populate(List<RoleDto> roles) {
-        try {
-            listview.getChildren().clear();
-            for (RoleDto role : roles) {
+        listview.getChildren().clear();
+        roles.forEach(role -> {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/components/employee/Role&DepartmentCard.fxml"));
-                AnchorPane card = loader.load();
+                AnchorPane root = loader.load();
                 RDCardController controller = loader.getController();
                 controller.setData(role, this);
-                listview.getChildren().add(card);
+                listview.getChildren().add(root);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
-        }
+        });
     }
 
+    @Override
     public void delete_item(int id) {
-        if (RoleModel.deleteRole(id)) {
+        if (roleService.deleteRole(id)) {
             AlertUtil.showSuccessAlert("Success", "Deleting Success", "Role has been deleted");
             init();
         } else {
@@ -77,42 +80,49 @@ public class RoleController implements RDCard {
 
     public void onSubmitClick() {
         if (submit_btn.getText().equals("create")) {
-            if (RoleModel.createRole(name_input.getText(), dis_input.getText())) {
-                AlertUtil.showSuccessAlert("Success", "Creation Success", "Role has been created");
-                populate(RoleModel.getAllRoles());
-                clear();
-            } else {
-                AlertUtil.showErrorAlert("Error", "Creation Error", "Role cannot be created");
-            }
+            handleCreate();
         } else {
-            if (RoleModel.updateRole(temp_id, name_input.getText(), dis_input.getText())) {
-                AlertUtil.showSuccessAlert("Success", "Update Success", "Role has been updated");
-                populate(RoleModel.getAllRoles());
-                clear();
-            } else {
-                AlertUtil.showErrorAlert("Error", "Update Error", "Role cannot be updated");
-            }
+            handleUpdate();
         }
+    }
+
+    private void handleCreate() {
+        if (roleService.createRole(name_input.getText(), dis_input.getText())) {
+            AlertUtil.showSuccessAlert("Success", "Creation Success", "Role has been created");
+            populate(roleService.getAllRoles());
+            clear();
+        } else {
+            AlertUtil.showErrorAlert("Error", "Creation Error", "Role cannot be created");
+        }
+    }
+
+    private void handleUpdate() {
+        if (roleService.updateRole(temp_id, name_input.getText(), dis_input.getText())) {
+            AlertUtil.showSuccessAlert("Success", "Update Success", "Role has been updated");
+            populate(roleService.getAllRoles());
+            clear();
+        } else {
+            AlertUtil.showErrorAlert("Error", "Update Error", "Role cannot be updated");
+        }
+    }
+
+    private void clear() {
+        name_input.clear();
+        dis_input.clear();
+        submit_btn.setText("create");
+        temp_id = 0;
     }
 
     @Override
     public void edit_item(int id) {
         temp_id = id;
-        RoleDto role = RoleModel.getRoleById(id);
-        submit_btn.setText("update");
-        System.out.println(role);
+        RoleDto role = roleService.getRoleById(id);
         if (role != null) {
             name_input.setText(role.getRoleName());
             dis_input.setText(role.getDescription());
+            submit_btn.setText("update");
         } else {
             AlertUtil.showErrorAlert("Error", "Fetching Error", "Role not found");
         }
-    }
-
-    public void clear() {
-        name_input.clear();
-        dis_input.clear();
-        submit_btn.setText("create");
-        submit_btn.setDisable(true);
     }
 }

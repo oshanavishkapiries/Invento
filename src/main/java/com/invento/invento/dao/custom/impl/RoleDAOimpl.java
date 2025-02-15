@@ -1,6 +1,7 @@
-package com.invento.invento.model;
+package com.invento.invento.dao.custom.impl;
 
-import com.invento.invento.dto.RoleDto;
+import com.invento.invento.dao.custom.RoleDAO;
+import com.invento.invento.entity.Role;
 import com.invento.invento.utils.CrudUtil;
 
 import java.sql.ResultSet;
@@ -8,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleModel {
+public class RoleDAOimpl implements RoleDAO {
 
-
-    public static boolean createRole(String roleName, String description) {
+    @Override
+    public boolean createRole(String roleName, String description) {
         String sql = "INSERT INTO Role (RoleName, Description) VALUES (?, ?)";
 
         try {
@@ -22,20 +23,19 @@ public class RoleModel {
         }
     }
 
-
-    public static List<RoleDto> getAllRoles() {
+    @Override
+    public List<Role> getAllRoles() {
         String sql = "SELECT * FROM Role";
 
         try (ResultSet resultSet = CrudUtil.execute(sql)) {
-            List<RoleDto> roles = new ArrayList<>();
+            List<Role> roles = new ArrayList<>();
 
             while (resultSet.next()) {
-                int roleId = resultSet.getInt("RoleID");
-                String roleName = resultSet.getString("RoleName");
-                String description = resultSet.getString("Description");
-
-                RoleDto role = new RoleDto(roleId, roleName, description);
-                roles.add(role);
+                roles.add(new Role(
+                    resultSet.getInt("RoleID"),
+                    resultSet.getString("RoleName"),
+                    resultSet.getString("Description")
+                ));
             }
 
             return roles;
@@ -46,16 +46,17 @@ public class RoleModel {
         }
     }
 
-
-    public static RoleDto getRoleById(int roleId) {
+    @Override
+    public Role getRoleById(int roleId) {
         String sql = "SELECT * FROM Role WHERE RoleID = ?";
 
         try (ResultSet resultSet = CrudUtil.execute(sql, roleId)) {
             if (resultSet.next()) {
-                String roleName = resultSet.getString("RoleName");
-                String description = resultSet.getString("Description");
-
-                return new RoleDto(roleId, roleName, description);
+                return new Role(
+                    roleId,
+                    resultSet.getString("RoleName"),
+                    resultSet.getString("Description")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,8 +65,8 @@ public class RoleModel {
         return null;
     }
 
-
-    public static boolean updateRole(int roleId, String roleName, String description) {
+    @Override
+    public boolean updateRole(int roleId, String roleName, String description) {
         String sql = "UPDATE Role SET RoleName = ?, Description = ? WHERE RoleID = ?";
 
         try {
@@ -76,8 +77,8 @@ public class RoleModel {
         }
     }
 
-
-    public static boolean deleteRole(int roleId) {
+    @Override
+    public boolean deleteRole(int roleId) {
         String sql = "DELETE FROM Role WHERE RoleID = ?";
 
         try {
@@ -88,18 +89,18 @@ public class RoleModel {
         }
     }
 
-    public static List<RoleDto> searchRole(String text) {
+    @Override
+    public List<Role> searchRole(String text) {
         String sql = "SELECT * FROM Role WHERE RoleName LIKE ?";
-        List<RoleDto> roles = new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
 
         try (ResultSet resultSet = CrudUtil.execute(sql, "%" + text + "%")) {
             while (resultSet.next()) {
-                int roleId = resultSet.getInt("RoleID");
-                String roleName = resultSet.getString("RoleName");
-                String description = resultSet.getString("Description");
-
-                RoleDto role = new RoleDto(roleId, roleName, description);
-                roles.add(role);
+                roles.add(new Role(
+                    resultSet.getInt("RoleID"),
+                    resultSet.getString("RoleName"),
+                    resultSet.getString("Description")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();

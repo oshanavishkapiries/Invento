@@ -7,7 +7,6 @@ import com.invento.invento.controller.components.inventory.GridView;
 import com.invento.invento.controller.components.inventory.ListView;
 import com.invento.invento.controller.InventoryController;
 import com.invento.invento.controller.components.inventory.SupplierController;
-import com.invento.invento.controller.components.employee.EmployeepopController;
 import com.invento.invento.controller.components.order.PlaceOrderController;
 import javafx.stage.Stage;
 

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class CrudUtil {
 
+    @SuppressWarnings("unchecked")
     public static <T> T execute(String sql, Object... obj) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement pst = connection.prepareStatement(sql);

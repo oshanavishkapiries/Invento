@@ -2,7 +2,8 @@ package com.invento.invento.controller.components.employee;
 
 import com.invento.invento.dto.DepartmentDto;
 import com.invento.invento.dto.RoleDto;
-import com.invento.invento.model.DepartmentModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.DepartmentService;
 import com.invento.invento.utils.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,33 +34,39 @@ public class DepartmentController implements RDCard {
     private Button submit_btn;
 
     private int temp_id;
+    
+    private final DepartmentService departmentService;
+
+    public DepartmentController() {
+        this.departmentService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.DEPARTMENT);
+    }
 
     @FXML
     private void initialize() {
         submit_btn.setOnAction(e -> onSubmitClick());
         name_input.setOnKeyTyped(e -> submit_btn.setDisable(name_input.getText().isEmpty()));
-        search_input.setOnKeyTyped(e -> populate(DepartmentModel.searchDepartment(search_input.getText())));
+        search_input.setOnKeyTyped(e -> populate(departmentService.searchDepartment(search_input.getText())));
         init();
     }
 
     private void init() {
         submit_btn.setDisable(true);
-        populate(DepartmentModel.getAllDepartments());
+        populate(departmentService.getAllDepartments());
     }
 
     private void onSubmitClick() {
         if (submit_btn.getText().equals("create")) {
-            if (DepartmentModel.createDepartment(name_input.getText(), dis_input.getText())) {
+            if (departmentService.createDepartment(name_input.getText(), dis_input.getText())) {
                 AlertUtil.showSuccessAlert("Success", "Creation Success", "Department has been created");
-                populate(DepartmentModel.getAllDepartments());
+                populate(departmentService.getAllDepartments());
                 clear();
             } else {
                 AlertUtil.showErrorAlert("Error", "Creation Error", "Department cannot be created");
             }
         } else {
-            if (DepartmentModel.updateDepartment(temp_id, name_input.getText(), dis_input.getText())) {
+            if (departmentService.updateDepartment(temp_id, name_input.getText(), dis_input.getText())) {
                 AlertUtil.showSuccessAlert("Success", "Update Success", "Department has been updated");
-                populate(DepartmentModel.getAllDepartments());
+                populate(departmentService.getAllDepartments());
                 clear();
             } else {
                 AlertUtil.showErrorAlert("Error", "Update Error", "Department cannot be updated");
@@ -93,16 +100,16 @@ public class DepartmentController implements RDCard {
 
     public void edit_item(int id) {
         temp_id = id;
-        DepartmentDto department = DepartmentModel.getDepartmentById(id);
+        DepartmentDto department = departmentService.getDepartmentById(id);
         name_input.setText(department.getName());
         dis_input.setText(department.getLocation());
         submit_btn.setText("update");
     }
 
     public void delete_item(int id) {
-        if (DepartmentModel.deleteDepartment(id)) {
+        if (departmentService.deleteDepartment(id)) {
             AlertUtil.showSuccessAlert("Success", "Deletion Success", "Department has been deleted");
-            populate(DepartmentModel.getAllDepartments());
+            populate(departmentService.getAllDepartments());
         } else {
             AlertUtil.showErrorAlert("Error", "Deletion Error", "Department cannot be deleted");
         }

@@ -2,8 +2,9 @@ package com.invento.invento.controller.components.order;
 
 import com.invento.invento.dto.OrderDto;
 import com.invento.invento.dto.inventoryCardDto;
-import com.invento.invento.model.OrderModel;
-import com.invento.invento.model.ProductModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.OrderService;
+import com.invento.invento.service.custom.ProductService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,70 +51,92 @@ public class PlaceOrderController {
 
     public List<inventoryCardDto> selectedBuyingProduct = new ArrayList<>();
 
+    private final OrderService orderService;
+    private final ProductService productService;
+
+    public PlaceOrderController() {
+        this.orderService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.ORDER);
+        this.productService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.PRODUCT);
+    }
 
     @FXML
     public void initialize() {
         Reference.PlaceOrderController = this;
-
         init();
-
         try {
-            populateProductItemListView(ProductModel.getAllProducts());
+            populateProductItemListView(productService.getAllProducts());
         } catch (Exception e) {
             AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
         }
-
     }
-
 
     public void init() {
         product_search_input.setOnKeyTyped(event -> {
             try {
-                populateProductItemListView(ProductModel.searchProductByName(product_search_input.getText()));
+                populateProductItemListView(productService.searchProductByName(product_search_input.getText()));
             } catch (Exception e) {
                 AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
             }
         });
 
-
         cancel_order.setOnAction(event -> {
             selectedBuyingProduct.clear();
             populateBuyProductListView();
-            Item_count.setText("0");
-            total_prize.setText("0");
+            updateOrderSummary();
         });
 
         set_discount.setOnKeyTyped(event -> {
-            double discount = Double.parseDouble(set_discount.getText());
-            double total = 0;
-            for (inventoryCardDto product : selectedBuyingProduct) {
-                total += product.getPrice() * (1 - discount);
+            try {
+                double discount = Double.parseDouble(set_discount.getText());
+                double total = calculateTotalWithDiscount(discount);
+                total_prize.setText(String.valueOf(total));
+            } catch (NumberFormatException e) {
+                set_discount.setText("0");
             }
-            total_prize.setText(String.valueOf(total));
         });
 
-        place_order.setOnAction(event -> {
-            if (selectedBuyingProduct.size() > 0) {
-                try {
-                    String date = java.time.LocalDate.now().toString();
-                    if (OrderModel.saveOrder(new OrderDto(0, 1, date, totalPrize()), selectedBuyingProduct)) {
-                        AlertUtil.showSuccessAlert("Success", "Order Saved", "Order Saved Successfully");
-                        selectedBuyingProduct.clear();
-                        populateBuyProductListView();
-                        Item_count.setText("0");
-                        total_prize.setText("0");
-                    } else {
-                        AlertUtil.showErrorAlert("Error", "Saving Error", "Order Saving Failed");
-                    }
-                } catch (Exception e) {
-                    AlertUtil.showErrorAlert("Error", "Saving Error", e.getMessage());
-                }
+        place_order.setOnAction(event -> handlePlaceOrder());
+    }
+
+    private void handlePlaceOrder() {
+        if (selectedBuyingProduct.isEmpty()) {
+            AlertUtil.showErrorAlert("Error", "No Products Selected", 
+                "Please select at least one product to save the order");
+            return;
+        }
+
+        try {
+            String date = java.time.LocalDate.now().toString();
+            OrderDto orderDto = new OrderDto(0, 1, date, totalPrize());
+
+            if (orderService.saveOrder(orderDto, selectedBuyingProduct)) {
+                AlertUtil.showSuccessAlert("Success", "Order Saved", "Order Saved Successfully");
+                clearOrder();
             } else {
-                AlertUtil.showErrorAlert("Error", "No Products Selected", "Please select at least one product to save the order");
+                AlertUtil.showErrorAlert("Error", "Saving Error", "Order Saving Failed");
             }
-        });
+        } catch (SQLException e) {
+            AlertUtil.showErrorAlert("Error", "Saving Error", e.getMessage());
+        }
+    }
 
+    private void clearOrder() {
+        selectedBuyingProduct.clear();
+        populateBuyProductListView();
+        updateOrderSummary();
+    }
 
+    private void updateOrderSummary() {
+        Item_count.setText(String.valueOf(selectedBuyingProduct.size()));
+        total_prize.setText(String.valueOf(totalPrize()));
+    }
+
+    private double calculateTotalWithDiscount(double discount) {
+        double total = 0;
+        for (inventoryCardDto product : selectedBuyingProduct) {
+            total += product.getPrice() * product.getQuantity() * (1 - discount);
+        }
+        return total;
     }
 
     @FXML
@@ -131,7 +155,6 @@ public class PlaceOrderController {
         }
     }
 
-
     public void populateBuyProductListView() {
         buy_product_list_view.getChildren().clear();
         for (inventoryCardDto product : selectedBuyingProduct) {
@@ -145,21 +168,13 @@ public class PlaceOrderController {
                 AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
             }
         }
-
-        Item_count.setText(String.valueOf(selectedBuyingProduct.size()));
-        double total = 0;
-        for (inventoryCardDto product : selectedBuyingProduct) {
-            total += product.getPrice() * product.getQuantity();
-        }
-        total_prize.setText(String.valueOf(total));
+        updateOrderSummary();
     }
 
     public double totalPrize() {
-        double total = 0;
-        for (inventoryCardDto product : selectedBuyingProduct) {
-            total += product.getPrice() * product.getQuantity();
-        }
-        return total;
+        return selectedBuyingProduct.stream()
+            .mapToDouble(product -> product.getPrice() * product.getQuantity())
+            .sum();
     }
 
     public void addBuyingProduct(inventoryCardDto product) {
@@ -168,10 +183,8 @@ public class PlaceOrderController {
         populateBuyProductListView();
     }
 
-
     public void removeBuyingProduct(inventoryCardDto product) {
         selectedBuyingProduct.remove(product);
         populateBuyProductListView();
     }
-
 }

@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
-import com.invento.invento.model.ProductModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.ProductService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.collections.FXCollections;
@@ -47,10 +48,15 @@ public class UpdatePopup {
     private ImageView upload_img;
 
     private inventoryCardDto cardData;
+    private final ProductService productService;
+
+    public UpdatePopup() {
+        this.productService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.PRODUCT);
+    }
 
     public void initialize(int id) {
         try {
-            cardData = ProductModel.getProductById(id);
+            cardData = productService.getProductById(id);
             loadCategories();
             loadBrands();
             initFields();
@@ -59,30 +65,41 @@ public class UpdatePopup {
         }
     }
 
-    private List<String> tempCategories = ProductModel.getUniqueCategories();
-    private List<String> tempBrands = ProductModel.getUniqueBrands();
+    private List<String> tempCategories;
+    private List<String> tempBrands;
 
     private void loadCategories() {
+        tempCategories = productService.getUniqueCategories();
         ObservableList<String> categoryList = FXCollections.observableArrayList(tempCategories);
         product_category.setItems(categoryList);
     }
 
     private void loadBrands() {
+        tempBrands = productService.getUniqueBrands();
         ObservableList<String> brandList = FXCollections.observableArrayList(tempBrands);
         product_brand.setItems(brandList);
     }
 
     private void initFields() {
-        product_name.setText(cardData.getName());
-        product_description.setText(cardData.getDescription());
-        product_price.setText(String.valueOf(cardData.getPrice()));
-        product_quantityInStock.setText(String.valueOf(cardData.getQuantity()));
-        product_brand.setValue(cardData.getBrand());
-        product_category.setValue(cardData.getTag());
+        if (cardData != null) {
+            product_name.setText(cardData.getName());
+            product_description.setText(cardData.getDescription());
+            product_price.setText(String.valueOf(cardData.getPrice()));
+            product_quantityInStock.setText(String.valueOf(cardData.getQuantity()));
+            product_brand.setValue(cardData.getBrand());
+            product_category.setValue(cardData.getTag());
+            setImage(cardData.getImageUrl());
+        }
+    }
 
-        String absolutePath = new File(cardData.getImageUrl()).getAbsolutePath();
-        Image image = cardData.getImageUrl().isEmpty() ? new Image(getClass().getResourceAsStream("/view/assets/icons/no_pic.png")) : new Image("file:" + absolutePath);
-        upload_img.setImage(image);
+    private void setImage(String path) {
+        if (path == null || path.isEmpty()) {
+            upload_img.setImage(new Image(getClass().getResourceAsStream("/view/assets/icons/no_pic.png")));
+            return;
+        }
+
+        String absolutePath = new File(path).getAbsolutePath();
+        upload_img.setImage(new Image("file:" + absolutePath));
     }
 
     @FXML
@@ -166,7 +183,7 @@ public class UpdatePopup {
         try {
             inventoryCardDto updatedProduct = getUpdatedInventoryCardDto();
 
-            if (ProductModel.updateProduct(updatedProduct)) {
+            if (productService.updateProduct(updatedProduct)) {
                 new Alert(Alert.AlertType.INFORMATION, "Product Updated Successfully").showAndWait();
                 Reference.InventoryController.init();
                 Reference.UpdatePopupScene.close();
