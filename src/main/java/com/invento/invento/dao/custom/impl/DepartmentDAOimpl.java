@@ -1,6 +1,7 @@
-package com.invento.invento.model;
+package com.invento.invento.dao.custom.impl;
 
-import com.invento.invento.dto.DepartmentDto;
+import com.invento.invento.dao.custom.DepartmentDAO;
+import com.invento.invento.entity.Department;
 import com.invento.invento.utils.CrudUtil;
 
 import java.sql.ResultSet;
@@ -8,9 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentModel {
+public class DepartmentDAOimpl implements DepartmentDAO {
 
-    public static boolean createDepartment(String name, String location) {
+    @Override
+    public boolean createDepartment(String name, String location) {
         String sql = "INSERT INTO Department ( Name, Location) VALUES ( ?, ?)";
 
         try {
@@ -21,19 +23,19 @@ public class DepartmentModel {
         }
     }
 
-    public static List<DepartmentDto> getAllDepartments() {
+    @Override
+    public List<Department> getAllDepartments() {
         String sql = "SELECT * FROM Department";
 
         try (ResultSet resultSet = CrudUtil.execute(sql)) {
-            List<DepartmentDto> departments = new ArrayList<>();
+            List<Department> departments = new ArrayList<>();
 
             while (resultSet.next()) {
-                int departmentId = resultSet.getInt("DepartmentID");
-                String name = resultSet.getString("Name");
-                String location = resultSet.getString("Location");
-
-                DepartmentDto department = new DepartmentDto(departmentId, name, location);
-                departments.add(department);
+                departments.add(new Department(
+                    resultSet.getInt("DepartmentID"),
+                    resultSet.getString("Name"),
+                    resultSet.getString("Location")
+                ));
             }
 
             return departments;
@@ -44,15 +46,17 @@ public class DepartmentModel {
         }
     }
 
-    public static DepartmentDto getDepartmentById(int departmentId) {
+    @Override
+    public Department getDepartmentById(int departmentId) {
         String sql = "SELECT * FROM Department WHERE DepartmentID = ?";
 
         try (ResultSet resultSet = CrudUtil.execute(sql, departmentId)) {
             if (resultSet.next()) {
-                String name = resultSet.getString("Name");
-                String location = resultSet.getString("Location");
-
-                return new DepartmentDto(departmentId, name, location);
+                return new Department(
+                    departmentId,
+                    resultSet.getString("Name"),
+                    resultSet.getString("Location")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,7 +65,8 @@ public class DepartmentModel {
         return null;
     }
 
-    public static boolean updateDepartment(int departmentId, String name, String location) {
+    @Override
+    public boolean updateDepartment(int departmentId, String name, String location) {
         String sql = "UPDATE Department SET Name = ?, Location = ? WHERE DepartmentID = ?";
 
         try {
@@ -72,7 +77,8 @@ public class DepartmentModel {
         }
     }
 
-    public static boolean deleteDepartment(int departmentId) {
+    @Override
+    public boolean deleteDepartment(int departmentId) {
         String sql = "DELETE FROM Department WHERE DepartmentID = ?";
 
         try {
@@ -83,18 +89,18 @@ public class DepartmentModel {
         }
     }
 
-    public static List<DepartmentDto> searchDepartment(String text) {
+    @Override
+    public List<Department> searchDepartment(String text) {
         String sql = "SELECT * FROM Department WHERE Name LIKE ?";
-        List<DepartmentDto> departments = new ArrayList<>();
+        List<Department> departments = new ArrayList<>();
 
         try (ResultSet resultSet = CrudUtil.execute(sql, "%" + text + "%")) {
             while (resultSet.next()) {
-                int departmentId = resultSet.getInt("DepartmentID");
-                String name = resultSet.getString("Name");
-                String location = resultSet.getString("Location");
-
-                DepartmentDto department = new DepartmentDto(departmentId, name, location);
-                departments.add(department);
+                departments.add(new Department(
+                    resultSet.getInt("DepartmentID"),
+                    resultSet.getString("Name"),
+                    resultSet.getString("Location")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,5 +108,4 @@ public class DepartmentModel {
 
         return departments;
     }
-
 }

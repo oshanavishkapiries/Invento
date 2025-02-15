@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.employee;
 
 import com.invento.invento.dto.EmployeeDto;
-import com.invento.invento.model.EmployeeModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.EmployeeService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
@@ -34,30 +35,38 @@ public class EmployeeCard {
 
     private int id;
 
+    private final EmployeeService employeeService;
+
+    public EmployeeCard() {
+        this.employeeService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.EMPLOYEE);
+    }
 
     @FXML
     private void initialize() {
         delete.setOnAction(event -> {
             Reference.EmployeeViewController.delete_by_id(id);
         });
+        
         edit.setOnAction(event -> {
             try {
-                Reference.EmployeeViewController.popup().setUpdate(id, EmployeeModel.getEmployeeById(id));
+                Reference.EmployeeViewController.popup()
+                    .setUpdate(id, employeeService.getEmployeeById(id));
             } catch (SQLException e) {
                 e.printStackTrace();
                 AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
             }
         });
+        
         __name.setOnMouseClicked(event -> {
             try {
-                Reference.EmployeeViewController.popup().viewDetail(EmployeeModel.getEmployeeById(id));
+                Reference.EmployeeViewController.popup()
+                    .viewDetail(employeeService.getEmployeeById(id));
             } catch (SQLException e) {
                 e.printStackTrace();
                 AlertUtil.showErrorAlert("Error", "Loading Error", e.getMessage());
             }
         });
     }
-
 
     public void setData(EmployeeDto data) {
         this.id = data.getEmployeeID();
@@ -67,5 +76,4 @@ public class EmployeeCard {
         this.department.setText(data.getDepartmentName());
         this.role.setText(data.getRoleName());
     }
-
 }

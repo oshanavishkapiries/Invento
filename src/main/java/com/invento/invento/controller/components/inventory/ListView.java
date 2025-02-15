@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
-import com.invento.invento.model.ProductModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.ProductService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
@@ -17,6 +18,12 @@ public class ListView {
     @FXML
     private GridPane gridPane;
 
+    private final ProductService productService;
+
+    public ListView() {
+        this.productService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.PRODUCT);
+    }
+
     @FXML
     public void initialize() {
         Reference.listView = this;
@@ -26,7 +33,7 @@ public class ListView {
                 gridPane.getChildren().clear();
             }
 
-            List<inventoryCardDto> cardDataList = ProductModel.getAllProducts();
+            List<inventoryCardDto> cardDataList = productService.getAllProducts();
 
             if (cardDataList.isEmpty()) {
                 AlertUtil.showAlert("Information", "No Products Found", "No products are available to display in the list.");

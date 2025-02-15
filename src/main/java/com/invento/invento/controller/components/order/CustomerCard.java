@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.order;
 
 import com.invento.invento.dto.CustomerDto;
-import com.invento.invento.model.CustomerModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.CustomerService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
@@ -34,6 +35,11 @@ public class CustomerCard {
 
     private int Id;
 
+    private final CustomerService customerService;
+
+    public CustomerCard() {
+        this.customerService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.CUSTOMER);
+    }
 
     @FXML
     private void initialize() {
@@ -46,23 +52,31 @@ public class CustomerCard {
     }
 
     private void onDeleteClick() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            try {
-                if (CustomerModel.deleteCustomer(Id)) {
-                    AlertUtil.showAlert("Success", "Customer Deleted", "Customer deleted successfully.");
-                    Reference.OrderController.populateCustomerListView();
-                } else {
-                    AlertUtil.showErrorAlert("Error", "Deletion Error", "Failed to delete customer.");
-                }
-            } catch (SQLException e) {
-                AlertUtil.showErrorAlert("Error", "Database Error", e.getMessage());
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION, 
+            "Are you sure you want to delete this customer?", 
+            ButtonType.YES, ButtonType.NO);
+        
+        confirmDialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                deleteCustomer();
             }
-        }
+        });
     }
 
+    private void deleteCustomer() {
+        try {
+            if (customerService.deleteCustomer(Id)) {
+                AlertUtil.showAlert("Success", "Customer Deleted", 
+                    "Customer deleted successfully.");
+                Reference.OrderController.populateCustomerListView();
+            } else {
+                AlertUtil.showErrorAlert("Error", "Deletion Error", 
+                    "Failed to delete customer.");
+            }
+        } catch (SQLException e) {
+            AlertUtil.showErrorAlert("Error", "Database Error", e.getMessage());
+        }
+    }
 
     public void setCustomer(CustomerDto customer) {
         this.Id = customer.getCustomerID();
@@ -71,6 +85,4 @@ public class CustomerCard {
         this.phone.setText(customer.getPhone());
         this.address.setText(customer.getAddress());
     }
-
-
 }

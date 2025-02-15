@@ -1,7 +1,8 @@
 package com.invento.invento.controller.components.inventory;
 
 import com.invento.invento.dto.inventoryCardDto;
-import com.invento.invento.model.ProductModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.ProductService;
 import com.invento.invento.utils.Reference;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,12 @@ public class BothCard {
 
     private int Id;
 
+    private final ProductService productService;
+
+    public BothCard() {
+        this.productService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.PRODUCT);
+    }
+
     public void initialize() {
         btn_delete.setOnAction(event -> showDeleteConfirmationAlert());
         btn_edit.setOnAction(event -> btn_edit_click());
@@ -72,7 +79,6 @@ public class BothCard {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     void btn_edit_click() {
@@ -109,14 +115,12 @@ public class BothCard {
     }
 
     private void deleteProduct() {
-        boolean isDeleted = ProductModel.deleteProductById(Id);
+        boolean isDeleted = productService.deleteProductById(Id);
         if (isDeleted) {
-            System.out.println("Product deleted successfully!");
             Reference.gridView.initialize();
             Reference.listView.initialize();
             new Alert(Alert.AlertType.INFORMATION, "Product deleted successfully!").showAndWait();
         } else {
-            System.out.println("Failed to delete the product.");
             new Alert(Alert.AlertType.ERROR, "Failed to delete the product.").showAndWait();
         }
     }

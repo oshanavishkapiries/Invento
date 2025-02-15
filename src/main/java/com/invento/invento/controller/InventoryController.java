@@ -1,7 +1,8 @@
 package com.invento.invento.controller;
 
 import com.invento.invento.dto.inventoryCardDto;
-import com.invento.invento.model.ProductModel;
+import com.invento.invento.service.ServiceFactory;
+import com.invento.invento.service.custom.ProductService;
 import com.invento.invento.utils.AlertUtil;
 import com.invento.invento.utils.Reference;
 import com.invento.invento.utils.aminations.FadeIn;
@@ -63,6 +64,12 @@ public class InventoryController {
     @FXML
     private ImageView upload_img;
 
+    private final ProductService productService;
+
+    public InventoryController() {
+        this.productService = ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.PRODUCT);
+    }
+
     @FXML
     public void initialize() {
         Reference.InventoryController = this;
@@ -71,15 +78,17 @@ public class InventoryController {
         loadBrands();
     }
 
-    private List<String> tempCategories = ProductModel.getUniqueCategories();
-    private List<String> tempBrands = ProductModel.getUniqueBrands();
+    private List<String> tempCategories;
+    private List<String> tempBrands;
 
     private void loadCategories() {
+        tempCategories = productService.getUniqueCategories();
         ObservableList<String> categoryList = FXCollections.observableArrayList(tempCategories);
         product_category.setItems(categoryList);
     }
 
     private void loadBrands() {
+        tempBrands = productService.getUniqueBrands();
         ObservableList<String> brandList = FXCollections.observableArrayList(tempBrands);
         product_brand.setItems(brandList);
     }
@@ -115,9 +124,9 @@ public class InventoryController {
         List<inventoryCardDto> results;
 
         if (searchText == null || searchText.isEmpty()) {
-            results = ProductModel.getAllProducts();
+            results = productService.getAllProducts();
         } else {
-            results = ProductModel.searchProductByName(searchText);
+            results = productService.searchProductByName(searchText);
         }
 
         Reference.gridView.removeElement();
@@ -208,15 +217,8 @@ public class InventoryController {
         try {
             inventoryCardDto product = getInventoryCardDto();
 
-            if (ProductModel.createProduct(product)) {
-                product_name.clear();
-                product_description.clear();
-                product_brand.setValue(null);
-                product_category.setValue(null);
-                product_price.clear();
-                product_quantityInStock.clear();
-                clean_img_click();
-
+            if (productService.createProduct(product)) {
+                clearForm();
                 AlertUtil.showAlert("Success", "Product Added", "Product added successfully!");
                 init();
             } else {
@@ -228,6 +230,16 @@ public class InventoryController {
         } catch (NullPointerException e) {
             AlertUtil.showErrorAlert("Error", "Missing Input", "Please select brand and category.");
         }
+    }
+
+    private void clearForm() {
+        product_name.clear();
+        product_description.clear();
+        product_brand.setValue(null);
+        product_category.setValue(null);
+        product_price.clear();
+        product_quantityInStock.clear();
+        clean_img_click();
     }
 
     private inventoryCardDto getInventoryCardDto() {
